@@ -1,0 +1,7 @@
+flags: {}
+extra-package-dbs: []
+packages:
+- '.'
+extra-deps:
+- floating-bits-0.3.0.0
+resolver: lts-6.14
