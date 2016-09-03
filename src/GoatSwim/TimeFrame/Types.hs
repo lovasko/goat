@@ -6,9 +6,9 @@ module GoatSwim.TimeFrame.Types
 ) where
 
 import Control.DeepSeq
+import Data.Word
 import GHC.Generics
 import GoatSwim.Util
-import Data.Word
 import qualified Data.ByteString as B
 
 -- | Succinct representation of a set of time points.
@@ -21,11 +21,11 @@ data TimeFrame = TimeFrame
 
 -- | Pretty-printing of the TimeFrame type.
 instance Show TimeFrame where
-  show (TimeFrame Nothing     _           _   _ ) = "TimeFrame EMPTY"
-  show (TimeFrame (Just frst) Nothing     _   _ ) = "TimeFrame " ++ show frst
-  show (TimeFrame (Just frst) (Just scnd) len bs) =
+  show (TimeFrame Nothing  _        _   _ ) = "TimeFrame EMPTY"
+  show (TimeFrame (Just x) Nothing  _   _ ) = "TimeFrame " ++ show x 
+  show (TimeFrame (Just y) (Just y) len bs) =
     unwords [ "TimeFrame"
-            , "frst=" ++ show frst
-            , "scnd=" ++ show scnd
+            , "frst=" ++ show x
+            , "scnd=" ++ show y 
             , map (bool '1' '0') (take len (unpackBits bs)) ]
 
