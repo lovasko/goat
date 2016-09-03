@@ -25,10 +25,6 @@ timeEncode xs     = TimeFrame (Just x) (Just y) (length bits) (packBits bits)
     (x:y:times) = reverse xs                        :: [Word32]
 
 -- | Encode the new incoming value based on its delta of a delta.
--- By determining the correct size of the value, we store only the
--- significant bits of the number, while prepending the number header in
--- front of it. This way the decoding function knows how many bits of the
--- following number to expect.
 encode :: Int64  -- ^ delta of a delta
        -> [Bool] -- ^ new bits
 encode dod
