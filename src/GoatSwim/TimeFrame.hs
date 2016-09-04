@@ -1,7 +1,7 @@
 module GoatSwim.TimeFrame
-( TimeFrame(..) -- ^ *
-, timeDecode    -- ^ TimeFrame -> [Word32]
-, timeEncode    -- ^ [Word32] -> TimeFrame
+( TimeFrame(..)
+, timeDecode
+, timeEncode
 ) where
 
 import GoatSwim.TimeFrame.Decode
