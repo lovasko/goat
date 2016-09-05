@@ -14,6 +14,17 @@ prop_alignTo :: [Bool]
              -> Bool
 prop_alignTo xs = mod (length $ alignTo 8 False xs) 8 == 0
 
+-- | The two functions to/fromBools must form an identity when composed.
+prop_toFromBools :: [Bool]
+                 -> Property
+prop_toFromBools bools = length bools == 8 ==>
+                         bools == toBools (fromBools bools :: Word8)
+
+-- | The two functions from/toBools must form an identity when composed.
+prop_fromToBools :: Word64
+                 -> Bool
+prop_fromToBools word = word == fromBools (toBools word)
+
 -- | The two functions un/packBits must form an identity when composed.
 -- The only difference is that the packBits function aligns the input
 -- to the upper-multiply of eight.
@@ -61,6 +72,8 @@ runTests :: IO [Result]
 runTests = mapM runTest tests
   where
     tests = [ ("alignTo        ", property prop_alignTo)
+            , ("toFromBools    ", property prop_toFromBools)
+            , ("fromToBools    ", property prop_fromToBools)
             , ("packUnpackBits ", property prop_packUnpackBits)
             , ("encdecNumber   ", property prop_encdecNumber)
             , ("encdecTimeFrame", property prop_encdecTimeFrame)]

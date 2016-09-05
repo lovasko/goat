@@ -5,8 +5,11 @@ module GoatSwim.Util
 , packBits
 , unpackBits
 , alignTo
+, toBools
+, fromBools
 ) where
 
+import Data.Bits
 import Data.Bits.Bitwise (toListLE, fromListLE)
 import Data.Int
 import Data.List.Split   (chunksOf)
@@ -56,4 +59,16 @@ alignTo n e xs
   | otherwise = xs ++ replicate (n - rear) e
   where
     rear = mod (length xs) n
+
+-- | Convert a Bits instance into a list of bools.
+toBools :: (FiniteBits b)
+        => b
+        -> [Bool]
+toBools bits = map (testBit bits) [0..(finiteBitSize bits)-1]
+
+-- | Convert a list of bools into a Bits instance.
+fromBools :: (Num b, FiniteBits b)
+          => [Bool]
+          -> b
+fromBools = foldr (\b i -> (bool (bit 0) 0 b) .|. (i `shiftL` 1)) 0
 
