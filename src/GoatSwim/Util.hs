@@ -61,13 +61,13 @@ alignTo n e xs
 
 -- | Convert a Bits instance into a list of bools.
 toBools :: (FiniteBits b)
-        => b
-        -> [Bool]
+        => b      -- ^ Bits instance
+        -> [Bool] -- ^ bits
 toBools bits = map (testBit bits) [0..(finiteBitSize bits)-1]
 
 -- | Convert a list of bools into a Bits instance.
 fromBools :: (Num b, FiniteBits b)
-          => [Bool]
-          -> b
+          => [Bool] -- ^ bits
+          -> b      -- ^ Bits instance
 fromBools = foldr (\b i -> bool (bit 0) 0 b .|. shift i 1) 0
 
