@@ -3,7 +3,6 @@ module GoatSwim.TimeFrame.Decode
 ) where
 
 import Data.Bifunctor
-import Data.Bits.Bitwise (fromListLE)
 import Data.Int
 import Data.List
 import Data.Word
@@ -34,7 +33,7 @@ decode (False:xs)                = Just (0, xs)
 decode (True:False:xs)           = Just $ extract xs  7
 decode (True:True:False:xs)      = Just $ extract xs  9
 decode (True:True:True:False:xs) = Just $ extract xs 12
-decode (True:True:True:True:xs)  = Just $ first fromListLE (splitAt 64 xs)
+decode (True:True:True:True:xs)  = Just $ first fromBools (splitAt 64 xs)
 decode _                         = Nothing
 
 -- | Extract a signed integer from a list of bits.

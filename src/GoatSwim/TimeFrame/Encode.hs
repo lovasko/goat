@@ -2,7 +2,6 @@ module GoatSwim.TimeFrame.Encode
 ( timeEncode
 ) where
 
-import Data.Bits.Bitwise (toListLE)
 import Data.Int
 import Data.Word
 import GoatSwim.TimeFrame.Number
@@ -31,7 +30,7 @@ encode dod
   | inBounds   (-64)   63 dod = header 1 1 ++ encodeNumber  7 dod
   | inBounds  (-256)  255 dod = header 2 1 ++ encodeNumber  9 dod
   | inBounds (-2048) 2047 dod = header 3 1 ++ encodeNumber 12 dod
-  | otherwise                 = header 4 0 ++ toListLE dod
+  | otherwise                 = header 4 0 ++ toBools dod
   where
     header t f = replicate t True ++ replicate f False
 
