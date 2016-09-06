@@ -1,6 +1,6 @@
 module GoatSwim.TimeFrame.Number
-( encodeNumber
-, decodeNumber
+( decodeNumber
+, encodeNumber 
 ) where
 
 import Data.Int
