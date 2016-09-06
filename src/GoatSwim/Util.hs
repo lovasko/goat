@@ -1,12 +1,12 @@
 module GoatSwim.Util
 ( bool
-, inBounds
-, sub
-, packBits
-, unpackBits
 , alignTo
-, toBools
 , fromBools
+, inBounds
+, packBits
+, sub
+, toBools
+, unpackBits
 ) where
 
 import Data.Bits
