@@ -22,7 +22,6 @@ library
                      , GoatSwim.TimeFrame.Number
   build-depends:       base >= 4.7 && < 5
                      , bifunctors
-                     , bitwise
                      , bytestring 
                      , deepseq
                      , floating-bits
