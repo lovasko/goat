@@ -8,8 +8,10 @@ module GoatSwim.TimeFrame.Types
 import Control.DeepSeq
 import Data.Word
 import GHC.Generics
-import GoatSwim.Util
+
 import qualified Data.ByteString as B
+
+import GoatSwim.Util
 
 -- | Succinct representation of a set of time points.
 data TimeFrame = TimeFrame

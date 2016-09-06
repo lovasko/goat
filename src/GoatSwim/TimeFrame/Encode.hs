@@ -4,10 +4,12 @@ module GoatSwim.TimeFrame.Encode
 
 import Data.Int
 import Data.Word
+
+import qualified Data.ByteString as B
+
 import GoatSwim.TimeFrame.Number
 import GoatSwim.TimeFrame.Types
 import GoatSwim.Util
-import qualified Data.ByteString as B
 
 -- | Pack a list of time points into a succinct frame form.
 timeEncode :: [Word32]  -- ^ time points

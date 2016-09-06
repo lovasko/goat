@@ -4,6 +4,7 @@ module GoatSwim.TimeFrame.Number
 ) where
 
 import Data.Int
+
 import GoatSwim.Util
 
 -- | Convert an integer with bias into bits representation.

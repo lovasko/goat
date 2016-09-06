@@ -1,13 +1,13 @@
 import Data.Int
 import Data.List
 import Data.Word
+import System.Exit
 import Test.QuickCheck
 import Test.QuickCheck.Test
 
-import GoatSwim.Util
 import GoatSwim.TimeFrame
 import GoatSwim.TimeFrame.Number
-import System.Exit
+import GoatSwim.Util
 
 -- | The result of the alignTo function must be a list
 prop_alignTo :: [Bool]
