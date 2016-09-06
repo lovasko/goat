@@ -69,5 +69,5 @@ toBools bits = map (testBit bits) [0..(finiteBitSize bits)-1]
 fromBools :: (Num b, FiniteBits b)
           => [Bool]
           -> b
-fromBools = foldr (\b i -> bool (bit 0) 0 b .|. (i `shiftL` 1)) 0
+fromBools = foldr (\b i -> bool (bit 0) 0 b .|. shift i 1) 0
 
