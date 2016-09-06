@@ -10,7 +10,6 @@ module GoatSwim.Util
 ) where
 
 import Data.Bits
-import Data.Bits.Bitwise (toListLE, fromListLE)
 import Data.Int
 import Data.List.Split   (chunksOf)
 import Data.Word
@@ -33,12 +32,12 @@ sub a b = fromIntegral a - fromIntegral b
 -- | Pack a list of bits into a more compact form.
 packBits :: [Bool]       -- ^ bits
          -> B.ByteString -- ^ bytestring
-packBits xs = B.pack $ map fromListLE (chunksOf 8 xs)
+packBits xs = B.pack $ map fromBools (chunksOf 8 xs)
 
 -- | Unpack a compact block of bytes into a list of bools.
 unpackBits :: B.ByteString -- ^ bits
            -> [Bool]       -- ^ bytestring
-unpackBits b = concatMap toListLE (B.unpack b)
+unpackBits b = concatMap toBools (B.unpack b)
 
 -- | Endomorphism on the boolean type.
 bool :: a    -- ^ True option
@@ -70,5 +69,5 @@ toBools bits = map (testBit bits) [0..(finiteBitSize bits)-1]
 fromBools :: (Num b, FiniteBits b)
           => [Bool]
           -> b
-fromBools = foldr (\b i -> (bool (bit 0) 0 b) .|. (i `shiftL` 1)) 0
+fromBools = foldr (\b i -> bool (bit 0) 0 b .|. (i `shiftL` 1)) 0
 
