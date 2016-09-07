@@ -25,6 +25,15 @@ prop_idFromToBools :: Word64
                    -> Bool
 prop_idFromToBools word = word == fromBools (toBools word)
 
+-- | Two different words should always map to two different bit lists and two
+-- equal words should always map to equal lists.
+prop_uniqueToBools :: Word16
+                   -> Word16
+                   -> Bool
+prop_uniqueToBools x y
+  | x == y    = toBools x == toBools y
+  | otherwise = toBools x /= toBools y
+
 -- | The two functions un/packBits must form an identity when composed.
 -- The only difference is that the packBits function aligns the input
 -- to the upper-multiply of eight.
@@ -74,6 +83,7 @@ runTests = mapM runTest tests
     tests = [ ("alignTo        ", property prop_alignTo)
             , ("toFromBools    ", property prop_idToFromBools)
             , ("fromToBools    ", property prop_idFromToBools)
+            , ("uniqueToBools  ", property prop_uniqueToBools)
             , ("packUnpackBits ", property prop_idPackUnpackBits)
             , ("encdecNumber   ", property prop_idEncDecNumber)
             , ("encdecTimeFrame", property prop_idEncDecTimeFrame)]
