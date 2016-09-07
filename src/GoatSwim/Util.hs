@@ -11,8 +11,9 @@ module GoatSwim.Util
 
 import Data.Bits
 import Data.Int
-import Data.List.Split   (chunksOf)
+import Data.List.Split (chunksOf)
 import Data.Word
+
 import qualified Data.ByteString as B
 
 -- | Check whether a value falls within bounds (borders included).
