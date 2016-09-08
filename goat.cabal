@@ -20,6 +20,10 @@ library
                      , GoatSwim.TimeFrame.Decode
                      , GoatSwim.TimeFrame.Types
                      , GoatSwim.TimeFrame.Number
+                     , GoatSwim.ValueFrame
+                     , GoatSwim.ValueFrame.Encode
+                     , GoatSwim.ValueFrame.Decode
+                     , GoatSwim.ValueFrame.Types
   build-depends:       base >= 4.7 && < 5
                      , bifunctors
                      , bytestring 

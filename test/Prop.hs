@@ -8,6 +8,7 @@ import Test.QuickCheck.Test
 import GoatSwim.TimeFrame
 import GoatSwim.TimeFrame.Number
 import GoatSwim.Util
+import GoatSwim.ValueFrame
 
 -- | The result of the alignTo function must be a list
 prop_alignTo :: [Bool]
@@ -67,6 +68,12 @@ prop_idEncDecTimeFrame xs = let ys = nub $ sort xs in
                             head ys /= 0  ==>
                             ys == timeDecode (timeEncode (reverse ys))
 
+-- | The two functions valueDecode/Encode must form an identity when
+-- composed.
+prop_idEncDecValueFrame :: [Float]
+                        -> Bool
+prop_idEncDecValueFrame xs = xs == valueDecode (valueEncode xs)
+
 -- | Print a name of the property test and execute the QuickCheck
 -- algorithm.
 runTest :: (String, Property)
@@ -77,6 +84,9 @@ runTest (name, prop) =  putStr (name ++ " ")
     args = stdArgs {maxSuccess=5000, maxDiscardRatio=10000}
 
 -- | Run all available tests and collect results.
+-- TODO rename tests
+-- TODO add more unique tests
+-- TODO separate ID and unique tests
 runTests :: IO [Result]
 runTests = mapM runTest tests
   where
@@ -86,7 +96,8 @@ runTests = mapM runTest tests
             , ("uniqueToBools  ", property prop_uniqueToBools)
             , ("packUnpackBits ", property prop_idPackUnpackBits)
             , ("encdecNumber   ", property prop_idEncDecNumber)
-            , ("encdecTimeFrame", property prop_idEncDecTimeFrame)]
+            , ("encdecTimeFrame", property prop_idEncDecTimeFrame)
+            , ("idEncDecValueFrame", property prop_idEncDecValueFrame)]
 
 -- | Evaluate test results and set appropriate process exit code.
 main :: IO ()
