@@ -15,9 +15,9 @@ data ValueFrame = ValueFrame
 
 -- | Pretty-printing of the ValueFrame type.
 instance Show ValueFrame where
-  show (ValueFrame Nothing _ _)          = "ValueFrame EMPTY"
+  show (ValueFrame Nothing _ _)       = "ValueFrame EMPTY"
   show (ValueFrame (Just x) len bits) =
     unwords [ "ValueFrame"
-            , "frst=" ++ show (coerceToFloat x :: Float)
+            , "first=" ++ show (coerceToFloat x :: Float)
             , take len $ map (bool '1' '0') (unpackBits bits) ]
 
