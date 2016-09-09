@@ -24,8 +24,8 @@ valueDecode (ValueFrame (Just x) len bytes)
   | B.null bytes || len == 0 = [coerceToFloat x]
   | otherwise                = map coerceToFloat (x:xors)
   where
-    xors  = zipWith xor words (tail words)  :: [Word32]
-    words = unfoldr decode (bits, (12, 12)) :: [Word32]
+    xors  = zipWith xor (x:words) words  :: [Word32]
+    words = unfoldr decode (bits, (meaningful $ toBools x)) :: [Word32]
     bits  = take len (unpackBits bytes)     :: [Bool]
 
 -- | Decode a single XORed value.
@@ -35,22 +35,6 @@ decode (False:xs,      bounds) = Just (0, (xs, bounds))
 decode (True:False:xs, bounds) = Just $ inside bounds xs
 decode (True:True:xs,  _     ) = Just $ outside xs
 decode (_,             _     ) = Nothing
-
---decode ((True:False:ys), box@(lead, trail)) = Just (word, (rest, box))
---  where
---    word         = fromListLE number
---    (bits, rest) = splitAt (32-lead-trail)
---    number       = replicate False lead  ++ bits ++ replicate False trail
-
---decode ((True:True:ys), _) = Just (word, (rest, (lead, trail)))
---  where
---    [lead, size, zs] = splitPlaces ([5, 6, maxBound] :: Int) ys
---    trail            = 32 - lead - (fromListLE size)
---    (bits, rest)     = splitAt (fromListLE size) zs
-
-
---    number           = replicate False lead  ++ bits ++ replicate False trail
---    word             = fromListLE number
 
 -- | Handling of the within-bounds decoding case.
 inside :: (Int, Int)        -- ^ current bounds
@@ -77,4 +61,14 @@ surround :: (Int, Int)
          -> [Bool]
 surround (lead, trail) xs = replicate lead False ++ xs ++
                             replicate trail False
+
+-- | Find the core of the word surrounded by zero bits from both sides.
+meaningful :: [Bool]     -- ^ bits 
+           -> (Int, Int) -- ^ non-zero core bounds
+meaningful bits
+  | all (== False) bits = (16, 16)
+	| otherwise           = (lead, trail)
+  where
+    lead  = length $ takeWhile (== False) bits
+    trail = length $ takeWhile (== False) (reverse bits)
 

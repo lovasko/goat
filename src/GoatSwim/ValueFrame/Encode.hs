@@ -18,26 +18,10 @@ valueEncode :: [Float]    -- ^ data values
 valueEncode [] = ValueFrame Nothing 0 B.empty
 valueEncode xs = ValueFrame (Just x) (length bits) (packBits bits)
   where
-    bits      = concat $ snd $ mapAccumL encode (12, 12) xors :: [Bool]
-    xors      = zipWith xor words (tail words)                :: [Word32]
-    (x:words) = map coerceToWord xs                           :: [Word32]
-
--- | Encode a single value based on the previous leading and trailing
--- bit count.
---encode :: (Int, Int)           -- ^ current leading/trailing zeros
---       -> Word32               -- ^ value
---       -> ((Int, Int), [Bool]) -- ^ bits and new leading/trailing
---encode keep@(lead, trail) x
---  | x == 0    = (keep, [False])
---  | fits      = (keep, [True, False] ++ slice lead trail x)
---  | otherwise = (new,  [True, True]  ++ start 5 newLead
---                                     ++ start 6 (32-newLead-newTrail)
---                                     ++ slice newLead newTrail x)
---    where
---      new@(newL, newT) = (countLeadingZeros &&& countTrailingZeros) x
---      fits             = lead <= newL || trail <= newT
---      slice l t n      = take (32-t-l) (drop l (toListLE n))
---      start t n        = take t (toListLE n)
+    bits  = concat $ snd $ mapAccumL encode (meaningful $ toBools x) xors :: [Bool]
+    xors  = zipWith xor words (tail words)                :: [Word32]
+    words = map coerceToWord xs                           :: [Word32]
+    x     = head words
 
 -- | Encode a single value based on the previous leading and trailing
 -- bit count.
@@ -78,7 +62,9 @@ within (x, y) (a, b) = x <= a && y >= b
 -- | Find the core of the word surrounded by zero bits from both sides.
 meaningful :: [Bool]     -- ^ bits 
            -> (Int, Int) -- ^ non-zero core bounds
-meaningful bits = (lead, trail)
+meaningful bits
+  | all (== False) bits = (16, 16)
+	| otherwise           = (lead, trail)
   where
     lead  = length $ takeWhile (== False) bits
     trail = length $ takeWhile (== False) (reverse bits)
