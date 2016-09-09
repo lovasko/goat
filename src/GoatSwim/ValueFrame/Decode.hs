@@ -17,20 +17,20 @@ import GoatSwim.Util
 type Context = ([Bool], (Int, Int))
 
 -- | Unpack value points from the succinct frame.
-valueDecode :: ValueFrame
-            -> [Float]
-valueDecode (ValueFrame Nothing _ _)       = []
+valueDecode :: ValueFrame -- ^ succinct frame form
+            -> [Float]    -- ^ data points
+valueDecode (ValueFrame Nothing  _   _    ) = []
 valueDecode (ValueFrame (Just x) len bytes)
   | B.null bytes || len == 0 = [coerceToFloat x]
   | otherwise                = map coerceToFloat (x:xors)
   where
-    xors  = zipWith xor (x:words) words  :: [Word32]
-    words = unfoldr decode (bits, (meaningful $ toBools x)) :: [Word32]
+    xors  = drop 1 $ scanl xor x words      :: [Word32]
+    words = unfoldr decode (bits, (16, 16)) :: [Word32]
     bits  = take len (unpackBits bytes)     :: [Bool]
 
 -- | Decode a single XORed value.
-decode :: Context
-       -> Maybe (Word32, Context)
+decode :: Context                 -- ^ available bits & current bounds
+       -> Maybe (Word32, Context) -- ^ decode value & current context
 decode (False:xs,      bounds) = Just (0, (xs, bounds))
 decode (True:False:xs, bounds) = Just $ inside bounds xs
 decode (True:True:xs,  _     ) = Just $ outside xs
@@ -51,24 +51,14 @@ outside :: [Bool]            -- ^ bits
 outside xs = (fromBools number, (ys, (lead, trail)))
   where
     [lead, size] = map fromBools $ splitPlaces [5, 6] xs
-    trail        = 32 - lead - size
-    number       = surround (lead, trail) bits
-    (bits, ys)   = splitAt size (drop 11 xs)
+    trail        = 32 - lead - size                     
+    number       = surround (lead, trail) bits          
+    (bits, ys)   = splitAt size (drop 11 xs)            
 
 -- | Surround a list of bools with False elements.
-surround :: (Int, Int)
-         -> [Bool]
-         -> [Bool]
+surround :: (Int, Int) -- ^ leading and trailing count
+         -> [Bool]     -- ^ old list
+         -> [Bool]     -- ^ new list
 surround (lead, trail) xs = replicate lead False ++ xs ++
                             replicate trail False
-
--- | Find the core of the word surrounded by zero bits from both sides.
-meaningful :: [Bool]     -- ^ bits 
-           -> (Int, Int) -- ^ non-zero core bounds
-meaningful bits
-  | all (== False) bits = (16, 16)
-	| otherwise           = (lead, trail)
-  where
-    lead  = length $ takeWhile (== False) bits
-    trail = length $ takeWhile (== False) (reverse bits)
 
