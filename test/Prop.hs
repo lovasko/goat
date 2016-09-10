@@ -90,13 +90,13 @@ runTest (name, prop) =  putStr (name ++ " ")
 runTests :: IO [Result]
 runTests = mapM runTest tests
   where
-    tests = [ ("alignTo        ", property prop_alignTo)
-            , ("toFromBools    ", property prop_idToFromBools)
-            , ("fromToBools    ", property prop_idFromToBools)
-            , ("uniqueToBools  ", property prop_uniqueToBools)
-            , ("packUnpackBits ", property prop_idPackUnpackBits)
-            , ("encdecNumber   ", property prop_idEncDecNumber)
-            , ("encdecTimeFrame", property prop_idEncDecTimeFrame)
+    tests = [ ("alignTo           ", property prop_alignTo)
+            , ("idToFromBools     ", property prop_idToFromBools)
+            , ("idFromToBools     ", property prop_idFromToBools)
+            , ("uniqueToBools     ", property prop_uniqueToBools)
+            , ("idPackUnpackBits  ", property prop_idPackUnpackBits)
+            , ("idEncDecNumber    ", property prop_idEncDecNumber)
+            , ("idEncDecTimeFrame ", property prop_idEncDecTimeFrame)
             , ("idEncDecValueFrame", property prop_idEncDecValueFrame)]
 
 -- | Evaluate test results and set appropriate process exit code.
