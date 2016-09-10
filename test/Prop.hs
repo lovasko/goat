@@ -16,10 +16,9 @@ prop_alignTo :: [Bool]
 prop_alignTo xs = mod (length $ alignTo 8 False xs) 8 == 0
 
 -- | The two functions to/fromBools must form an identity when composed.
-prop_idToFromBools :: [Bool]
-                   -> Property
-prop_idToFromBools bools = length bools == 8 ==>
-                           bools == toBools (fromBools bools :: Word8)
+prop_idToFromBools :: Property
+prop_idToFromBools = forAll (vector 64) $ \bools ->
+                     bools == toBools (fromBools bools :: Word64)
 
 -- | The two functions from/toBools must form an identity when composed.
 prop_idFromToBools :: Word64
