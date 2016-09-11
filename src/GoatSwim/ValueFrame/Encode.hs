@@ -41,8 +41,8 @@ encode bounds x
 outside :: (Int, Int) -- ^ bounds
         -> [Bool]     -- ^ all number bits
         -> [Bool]     -- ^ encoded bits
-outside bounds@(lead, trail) bits = (take 5 $ toBools lead)            ++
-                                    (take 6 $ toBools (32-lead-trail)) ++
+outside bounds@(lead, trail) bits = take 5 ( toBools lead)            ++
+                                    take 6 ( toBools (32-lead-trail)) ++
                                     slice bounds bits
 
 -- | Select a sublist based on the specified bounds.
