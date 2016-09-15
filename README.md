@@ -4,6 +4,7 @@ released by Facebook. It is intended to be used as a UNIX daemon that
 awaits for data points and stores them in main memory. The project is
 in it's early state and no further implementation details and goals
 are available.
+![logo](http://smnd.sk/lovasko/goatswim.png)
 
 ## Dependencies
 Currently the following Haskell packages are required:
