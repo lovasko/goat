@@ -1,13 +1,8 @@
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
-
 module GoatSwim.TimeFrame.Types
 ( TimeFrame(..)
 ) where
 
-import Control.DeepSeq
 import Data.Word
-import GHC.Generics
 
 import qualified Data.ByteString as B
 
@@ -19,7 +14,6 @@ data TimeFrame = TimeFrame
                  (Maybe Word32) -- ^ second time point
                  Int            -- ^ number of valid bits
                  B.ByteString   -- ^ bits
-                 deriving (Generic, NFData)
 
 -- | Pretty-printing of the TimeFrame type.
 instance Show TimeFrame where
