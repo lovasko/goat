@@ -10,7 +10,6 @@ are available.
 Currently the following Haskell packages are required:
  * `bifunctors`
  * `bytestring`
- * `deepseq`
  * `floating-bits`
  * `split`
 
