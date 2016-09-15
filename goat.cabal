@@ -16,6 +16,9 @@ library
   hs-source-dirs:      src
   exposed-modules:     GoatSwim.TimeFrame
                      , GoatSwim.Util
+                     , GoatSwim.Frame
+                     , GoatSwim.Fluid
+                     , GoatSwim.Story
                      , GoatSwim.TimeFrame.Encode
                      , GoatSwim.TimeFrame.Decode
                      , GoatSwim.TimeFrame.Types
@@ -29,6 +32,7 @@ library
                      , bytestring 
                      , deepseq
                      , floating-bits
+                     , safe
                      , split
   default-language:    Haskell2010
 
