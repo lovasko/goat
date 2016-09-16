@@ -64,7 +64,7 @@ alignTo n e xs
 toBools :: (FiniteBits b)
         => b      -- ^ Bits instance
         -> [Bool] -- ^ bits
-toBools bits = map (testBit bits) [0..(finiteBitSize bits)-1]
+toBools bits = map (testBit bits) [0..finiteBitSize bits-1]
 
 -- | Convert a list of bools into a Bits instance.
 fromBools :: (Num b, FiniteBits b)
