@@ -30,7 +30,6 @@ library
   build-depends:       base >= 4.7 && < 5
                      , bifunctors
                      , bytestring 
-                     , deepseq
                      , floating-bits
                      , safe
                      , split
