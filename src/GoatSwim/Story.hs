@@ -67,7 +67,7 @@ storyQuery (Story _ _ ft fv) (hi, lo)
     values      = fluidSelect fv mask
     heads       = map (maybe False (inBounds hi lo)) (fluidHeads ft)
     mask        = (findTrue heads, findTrue (reverse heads))
-    findTrue xs = fromJust $ findIndex (==True) xs
+    findTrue xs = fromJust $ elemIndex True xs
 
 -- | Output a list of all time/value pairs stored for the metric.
 storyQueryAll :: Story             -- ^ story
