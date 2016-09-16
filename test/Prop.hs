@@ -61,10 +61,8 @@ prop_idEncDecNumber len n = len >= 3 ==>
 -- the functions. A list starting with zero would get interpreted as a
 -- empty list by the Encode function and therefore is not allowed.
 prop_idEncDecTimeFrame :: [Word32]
-                       -> Property
+                       -> Bool
 prop_idEncDecTimeFrame xs = let ys = nub $ sort xs in
-                            not (null xs) ==>
-                            head ys /= 0  ==>
                             ys == timeDecode (timeEncode (reverse ys))
 
 -- | The two functions valueDecode/Encode must form an identity when
