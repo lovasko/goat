@@ -53,7 +53,7 @@ fluidSelect :: Frame r c
             => Fluid r c  -- ^ fluid
             -> (Int, Int) -- ^ block indices
             -> [r]        -- ^ raw values
-fluidSelect (Fluid _ rs cs) (a, b) = (concat $ drop a rs) ++ decRs
+fluidSelect (Fluid _ rs cs) (a, b) = concat (drop a rs) ++ decRs
   where decRs = concatMap frameDecode (take (a+b-length rs) cs)
 
 -- | Shift one uncompressed component into the compressed ones and create
