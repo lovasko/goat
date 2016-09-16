@@ -7,6 +7,9 @@ are available.
 ![logo](http://smnd.sk/lovasko/goatswim.png)
 
 ## Dependencies
+The GHC version used throughout the project is `8.0.1`. All packages
+are sourced from the Stackage 7 LTS repository.
+
 Currently the following Haskell packages are required:
  * `bifunctors`
  * `bytestring`
