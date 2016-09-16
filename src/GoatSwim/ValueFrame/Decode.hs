@@ -24,9 +24,9 @@ valueDecode (ValueFrame (Just x) len bytes)
   | B.null bytes || len == 0 = [coerceToFloat x]
   | otherwise                = map coerceToFloat (x:xors)
   where
-    xors  = drop 1 $ scanl xor x words      :: [Word32]
-    words = unfoldr decode (bits, (16, 16)) :: [Word32]
-    bits  = take len (unpackBits bytes)     :: [Bool]
+    xors = drop 1 $ scanl xor x ws         :: [Word32]
+    ws   = unfoldr decode (bits, (16, 16)) :: [Word32]
+    bits = take len (unpackBits bytes)     :: [Bool]
 
 -- | Decode a single XORed value.
 decode :: Context                 -- ^ available bits & current bounds
@@ -50,7 +50,7 @@ outside :: [Bool]            -- ^ bits
         -> (Word32, Context) -- ^ decoded number & context
 outside xs = (fromBools number, (ys, (lead, trail)))
   where
-    [lead, size] = map fromBools $ splitPlaces [5, 6] xs
+    [lead, size] = map fromBools $ splitPlaces ([5, 6] :: [Int]) xs
     trail        = 32 - lead - size                     
     number       = surround (lead, trail) bits          
     (bits, ys)   = splitAt size (drop 11 xs)            
