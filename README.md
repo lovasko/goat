@@ -11,6 +11,7 @@ Currently the following Haskell packages are required:
  * `bifunctors`
  * `bytestring`
  * `floating-bits`
+ * `safe`
  * `split`
 
 This list is subject to change (e.g. `cereal` might be added) and should
