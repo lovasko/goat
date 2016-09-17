@@ -1,4 +1,3 @@
-import Data.Int
 import Data.List
 import Data.Word
 import System.Exit
@@ -6,7 +5,6 @@ import Test.QuickCheck
 import Test.QuickCheck.Test
 
 import GoatSwim.TimeFrame
-import GoatSwim.TimeFrame.Number
 import GoatSwim.Util
 import GoatSwim.ValueFrame
 
@@ -40,19 +38,6 @@ prop_uniqueToBools x y
 prop_idPackUnpackBits :: [Bool]
                       -> Bool
 prop_idPackUnpackBits xs = alignTo 8 False xs == unpackBits (packBits xs)
-
--- | The two functions encode/decodeNumber must form an identity when
--- composed. The test asserts the condition that at least one of the
--- number's bits is valid.
-prop_idEncDecNumber :: Int
-                    -> Int64
-                    -> Property
-prop_idEncDecNumber len n = len >= 3 ==>
-                            inBounds lo hi n ==>
-                            n == decodeNumber len (encodeNumber len n)
-  where
-    lo = -2^(len-1)
-    hi =  2^(len-1)-1
 
 -- | The two function timeDecode/Encode must form an identity when
 -- composed.  The test asserts two conditions of the timeEncode function:
@@ -92,7 +77,6 @@ runTests = mapM runTest tests
             , ("idFromToBools     ", property prop_idFromToBools)
             , ("uniqueToBools     ", property prop_uniqueToBools)
             , ("idPackUnpackBits  ", property prop_idPackUnpackBits)
-            , ("idEncDecNumber    ", property prop_idEncDecNumber)
             , ("idEncDecTimeFrame ", property prop_idEncDecTimeFrame)
             , ("idEncDecValueFrame", property prop_idEncDecValueFrame)]
 
