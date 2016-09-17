@@ -63,7 +63,7 @@ runTest :: (String, Property)
 runTest (name, prop) =  putStr (name ++ " ")
                      >> quickCheckWithResult args prop
   where
-    args = stdArgs {maxSuccess=5000, maxDiscardRatio=10000}
+    args = stdArgs {maxSuccess=100000, maxDiscardRatio=10000}
 
 -- | Run all available tests and collect results.
 -- TODO rename tests
