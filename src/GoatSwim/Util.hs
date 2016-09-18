@@ -1,6 +1,5 @@
 module GoatSwim.Util
 ( bool
-, alignTo
 , fromBools
 , inBounds
 , packBits
@@ -47,18 +46,6 @@ bool :: a    -- ^ True option
      -> a    -- ^ result
 bool x _ True  = x
 bool _ y False = y
-
--- | Align a list with a default element so that the list's length is a
--- multiple of a specified number.
-alignTo :: Int -- ^ base size
-        -> a   -- ^ element to append
-        -> [a] -- ^ old list
-        -> [a] -- ^ new list
-alignTo n e xs
-  | rear == 0 = xs
-  | otherwise = xs ++ replicate (n - rear) e
-  where
-    rear = mod (length xs) n
 
 -- | Convert a Bits instance into a list of bools.
 toBools :: (FiniteBits b)
