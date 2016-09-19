@@ -18,10 +18,14 @@ import GoatSwim.Util
 -- algorithm.
 runTest :: (String, Property)
         -> IO Result 
-runTest (name, prop) =  putStr (name ++ " ")
-                     >> quickCheckWithResult args prop
-  where
-    args = stdArgs {maxSuccess=100000, maxDiscardRatio=10000}
+runTest (name, prop) = do
+  result <- quickCheckWithResult args prop
+  putStr $ unwords [name, output result]
+  return result
+    where
+      args = stdArgs { maxSuccess=100000
+                     , maxDiscardRatio=10000
+                     , chatty=False }
 
 -- | Run all available property tests and collect results.
 runTests :: IO [Result]
