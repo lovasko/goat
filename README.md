@@ -1,4 +1,8 @@
 # GoatSwim
+
+[![Build Status](https://travis-ci.org/lovasko/goat.svg?branch=master)](https://travis-ci.org/lovasko/goat)
+[![Goat Status](https://img.shields.io/badge/goat-swimming-blue.svg)
+
 GoatSwim is a time-series database heavily inspired by the Gorilla paper
 released by Facebook. It is intended to be used as a UNIX daemon that
 awaits for data points and stores them in main memory. The project is
