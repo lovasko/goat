@@ -23,5 +23,5 @@ install:
 - stack --no-terminal install
 
 script:
-- stack test --pedantic
+- stack build --test --pedantic
 
