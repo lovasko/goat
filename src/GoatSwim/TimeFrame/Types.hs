@@ -14,6 +14,7 @@ data TimeFrame = TimeFrame
                  (Maybe Word32) -- ^ second time point
                  Int            -- ^ number of valid bits
                  B.ByteString   -- ^ bits
+                 deriving (Eq)
 
 -- | Pretty-printing of the TimeFrame type.
 instance Show TimeFrame where
