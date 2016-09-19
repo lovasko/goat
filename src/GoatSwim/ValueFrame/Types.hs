@@ -12,6 +12,7 @@ data ValueFrame = ValueFrame
                   (Maybe Word32) -- ^ first value
                   Int            -- ^ number of valid bits
                   B.ByteString   -- ^ bits
+                  deriving (Eq)
 
 -- | Pretty-printing of the ValueFrame type.
 instance Show ValueFrame where
