@@ -6,8 +6,6 @@ module GoatSwim.Story
 , storyQueryAll
 ) where
 
-import Data.List
-import Data.Maybe
 import Data.Word
 
 import GoatSwim.Fluid
@@ -63,11 +61,9 @@ storyQuery (Story _ _ ft fv) (hi, lo)
   | all (==False) heads = []
   | otherwise           = zip times values
   where
-    times       = fluidSelect ft mask
-    values      = fluidSelect fv mask
-    heads       = map (maybe False (inBounds hi lo)) (fluidHeads ft)
-    mask        = (findTrue heads, findTrue (reverse heads))
-    findTrue xs = fromJust $ elemIndex True xs
+    times  = fluidSelect ft heads
+    values = fluidSelect fv heads
+    heads  = map (maybe False (inBounds hi lo)) (fluidHeads ft)
 
 -- | Output a list of all time/value pairs stored for the metric.
 storyQueryAll :: Story             -- ^ story

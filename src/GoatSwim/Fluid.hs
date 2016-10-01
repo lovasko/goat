@@ -50,11 +50,14 @@ fluidHeads (Fluid _ rs cs) = map headMay rs ++ map frameHead cs
 
 -- | Return raw values stored within specified block indices.
 fluidSelect :: Frame r c
-            => Fluid r c  -- ^ fluid
-            -> (Int, Int) -- ^ block indices
-            -> [r]        -- ^ raw values
-fluidSelect (Fluid _ rs cs) (a, b) = concat (drop a rs) ++ decRs
-  where decRs = concatMap frameDecode (take (a+b-length rs) cs)
+            => Fluid r c -- ^ fluid
+            -> [Bool]    -- ^ block presence
+            -> [r]       -- ^ raw values
+fluidSelect (Fluid _ rs cs) presence = rvalues ++ cvalues
+  where
+    (rpres, cpres) = splitAt (length rs) presence
+    rvalues        = concat $ select rs rpres
+    cvalues        = concatMap frameDecode (select cs cpres)
 
 -- | Shift one uncompressed component into the compressed ones and create
 -- a new empty uncompressed component.
