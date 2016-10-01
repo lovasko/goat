@@ -61,7 +61,9 @@ fluidSelect (Fluid _ rs cs) (a, b) = concat (drop a rs) ++ decRs
 fluidShift :: (Frame r c)
            => Fluid r c -- ^ old fluid
            -> Fluid r c -- ^ new fluid
-fluidShift (Fluid ls@(l1, l2) rs cs) = Fluid ls newRs newCs
+fluidShift (Fluid ls@(l1, l2) rs cs)
+  | (null . last) rs = Fluid ls newRs cs
+  | otherwise        = Fluid ls newRs newCs
   where
     newRs = []                    : bool rs (init rs) (length rs <= l1)
     newCs = frameEncode (last rs) : bool cs (init cs) (length cs <= l2)
