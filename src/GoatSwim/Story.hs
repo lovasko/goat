@@ -1,9 +1,9 @@
 module GoatSwim.Story
 ( Story(..)
 , storyAppend
+, storyDump
 , storyNew
 , storyQuery
-, storyQueryAll
 ) where
 
 import Data.Word
@@ -65,8 +65,8 @@ storyQuery (Story _ _ ft fv) (hi, lo)
     values = fluidSelect fv heads
     heads  = map (maybe False (inBounds hi lo)) (fluidHeads ft)
 
--- | Output a list of all time/value pairs stored for the metric.
-storyQueryAll :: Story             -- ^ story
-              -> [(Word32, Float)] -- ^ time/data pairs
-storyQueryAll (Story _ _ ft fv) = zip (fluidDump ft) (fluidDump fv)
+-- | Output a list of all time/value pairs stored for the story.
+storyDump :: Story             -- ^ story
+          -> [(Word32, Float)] -- ^ time/data pairs
+storyDump (Story _ _ ft fv) = zip (fluidDump ft) (fluidDump fv)
 
