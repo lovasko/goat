@@ -43,7 +43,7 @@ fluidFirst (Fluid _ (x:_) _) = headMay x
 
 -- | Obtain the first elements of each section blocks. Empty frames and
 -- lists are represented as Nothing.
-fluidHeads :: (Frame r c)
+fluidHeads :: Frame r c
            => Fluid r c -- ^ fluid
            -> [Maybe r] -- ^ block heads
 fluidHeads (Fluid _ rs cs) = map headMay rs ++ map frameHead cs
@@ -61,7 +61,7 @@ fluidSelect (Fluid _ rs cs) presence = rvalues ++ cvalues
 
 -- | Shift one uncompressed component into the compressed ones and create
 -- a new empty uncompressed component.
-fluidShift :: (Frame r c)
+fluidShift :: Frame r c
            => Fluid r c -- ^ old fluid
            -> Fluid r c -- ^ new fluid
 fluidShift (Fluid ls@(l1, l2) rs cs)
@@ -80,7 +80,7 @@ fluidAppend (Fluid ls []     cs) val = Fluid ls [[val]]      cs
 fluidAppend (Fluid ls (r:rs) cs) val = Fluid ls ((val:r):rs) cs
 
 -- | Dump all stored values in the uncompressed form.
-fluidDump :: (Frame r c)
+fluidDump :: Frame r c
           => Fluid r c  -- ^ fluid
           -> [r]        -- ^ uncompressed values
 fluidDump (Fluid _ rs cs) = concat rs ++ concatMap frameDecode cs
