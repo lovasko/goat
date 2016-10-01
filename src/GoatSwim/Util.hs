@@ -3,6 +3,7 @@ module GoatSwim.Util
 , fromBools
 , inBounds
 , packBits
+, select
 , sub
 , toBools
 , unpackBits
@@ -58,4 +59,12 @@ fromBools :: (Num b, FiniteBits b)
           => [Bool] -- ^ bits
           -> b      -- ^ Bits instance
 fromBools = foldr (\b i -> bool (bit 0) 0 b .|. shift i 1) 0
+
+-- | Select only certain elements from the list based on the boolean values.
+select :: [a]    -- ^ list
+       -> [Bool] -- ^ presence flags
+       -> [a]    -- ^ filtered list 
+select []     _      = []
+select _      []     = []
+select (x:xs) (b:bs) = bool (x : select xs bs) (select xs bs) b
 
