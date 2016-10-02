@@ -65,11 +65,11 @@ fluidShift :: Frame r c
            => Fluid r c -- ^ old fluid
            -> Fluid r c -- ^ new fluid
 fluidShift (Fluid ls@(l1, l2) rs cs)
-  | (null . last) rs = Fluid ls newRs cs
-  | otherwise        = Fluid ls newRs newCs
+  | (null . last) rs || (length rs < l1) = Fluid ls newRs cs
+  | otherwise                            = Fluid ls newRs newCs
   where
-    newRs = []                    : bool rs (init rs) (length rs <= l1)
-    newCs = frameEncode (last rs) : bool cs (init cs) (length cs <= l2)
+    newRs = []                    : bool rs (init rs) (length rs < l1)
+    newCs = frameEncode (last rs) : bool cs (init cs) (length cs < l2)
 
 -- | Add new value to the fluid. Internally this function is _prepending_
 -- in front of all existing values.
