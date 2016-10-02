@@ -39,7 +39,8 @@ test-suite goat-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Prop.hs
-  other-modules:       Prop.Id
+  other-modules:       Prop.Fluid
+                     , Prop.Id
                      , Prop.Unique
   build-depends:       base
                      , QuickCheck
