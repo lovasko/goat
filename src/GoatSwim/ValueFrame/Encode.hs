@@ -33,7 +33,7 @@ encode bounds x
   | otherwise = (newBounds, [True, True]  ++ outside newBounds bits)
   where
     fits      = within bounds newBounds
-    newBounds = core bits
+    newBounds = core x
     bits      = toBools x
 
 -- | Handle the encoding case where the core part of the word does not fit
@@ -57,11 +57,14 @@ within :: (Int, Int) -- ^ existing bounds
        -> Bool       -- ^ decision
 within (a, b) (na, nb) = na >= a && nb >= b
 
--- | Find the core of the word surrounded by zero bits from both sides.
-core :: [Bool]     -- ^ bits 
+-- | Find the core of a 32-bit  word surrounded by zero bits from
+-- both sides.
+-- NOTE: this function swaps the lead/trail elements, as the functions
+-- from the Data.Bits module interpret data differently.
+core :: Word32     -- ^ 32-bit word
      -> (Int, Int) -- ^ non-zero core bounds
-core bits = (lead, trail)
+core x = (trail, lead)
   where
-    lead  = length $ takeWhile (== False) bits
-    trail = length $ takeWhile (== False) (reverse bits)
+    lead  = countLeadingZeros x
+    trail = countTrailingZeros x
 
