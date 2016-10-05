@@ -51,9 +51,9 @@ outside :: [Bool]            -- ^ bits
 outside xs = (fromBools number, (ys, (lead, trail)))
   where
     [lead, size] = map fromBools $ splitPlaces ([5, 6] :: [Int]) xs
-    trail        = 32 - lead - size                     
-    number       = surround (lead, trail) bits          
-    (bits, ys)   = splitAt size (drop 11 xs)            
+    trail        = 32 - lead - size
+    number       = surround (lead, trail) bits
+    (bits, ys)   = splitAt size (drop 11 xs)
 
 -- | Surround a list of bools with False elements.
 surround :: (Int, Int) -- ^ leading and trailing count
