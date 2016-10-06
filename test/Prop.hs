@@ -24,13 +24,6 @@ runTest (name, prop) = do
 -- | Run all available property tests and collect results.
 runTests :: IO [Result]
 runTests = mapM runTest (idProps ++ uniqueProps ++ fluidProps)
---    tests = [ ("alignTo           ", property prop_alignTo)
---            , ("idToFromBools     ", property prop_idToFromBools)
---            , ("idFromToBools     ", property prop_idFromToBools)
---            , ("uniqueToBools     ", property prop_uniqueToBools)
---            , ("idPackUnpackBits  ", property prop_idPackUnpackBits)
---            , ("idEncDecTimeFrame ", property prop_idEncDecTimeFrame)
---            , ("idEncDecValueFrame", property prop_idEncDecValueFrame)]
 
 -- | Evaluate test results and set appropriate process exit code.
 main :: IO ()
