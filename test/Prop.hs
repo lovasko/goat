@@ -24,7 +24,7 @@ runTest (name, prop) = do
   putStr $ unwords [name, output result]
   return result
     where
-      args = stdArgs { maxSuccess=10000
+      args = stdArgs { maxSuccess=50000
                      , maxDiscardRatio=10000
                      , chatty=False }
 
