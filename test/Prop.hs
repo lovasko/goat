@@ -8,13 +8,6 @@ import Prop.Unique
 
 import GoatSwim.Util
 
--- | The two functions un/packBits must form an identity when composed.
--- The only difference is that the packBits function aligns the input
--- to the upper-multiply of eight.
---prop_idPackUnpackBits :: [Bool]
---                      -> Bool
---prop_idPackUnpackBits xs = alignTo 8 False xs == unpackBits (packBits xs)
-
 -- | Print a name of the property test and execute the QuickCheck
 -- algorithm.
 runTest :: (String, Property)
