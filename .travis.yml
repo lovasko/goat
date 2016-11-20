@@ -23,5 +23,4 @@ install:
 - stack --no-terminal install
 
 script:
-- stack build --test --pedantic
-
+- travis_wait stack build --test --pedantic --test-arguments 20000
