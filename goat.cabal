@@ -37,8 +37,7 @@ library
 
 executable goatswim
   main-is:             Main.hs
-  hs-source-dirs:      cli/goatswim
-  other-modules:       Options
+  hs-source-dirs:      cli
   build-depends:       base >= 4.7 && < 5
                      , goat
                      , bytestring
