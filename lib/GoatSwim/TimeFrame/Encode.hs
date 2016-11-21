@@ -4,10 +4,8 @@ module GoatSwim.TimeFrame.Encode
 
 import Data.Int
 import Data.Word
-
 import qualified Data.ByteString as B
 
-import GoatSwim.TimeFrame.Number
 import GoatSwim.TimeFrame.Types
 import GoatSwim.Util
 
@@ -35,3 +33,4 @@ encode dod
   | otherwise                 = header 4 0 ++ toBools dod
   where
     header t f = replicate t True ++ replicate f False
+    encodeNumber valid x = take valid $ toBools (x + (2 ^ (valid - 1)))

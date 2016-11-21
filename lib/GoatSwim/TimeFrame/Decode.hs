@@ -6,10 +6,8 @@ import Data.Bifunctor
 import Data.Int
 import Data.List
 import Data.Word
-
 import qualified Data.ByteString as B
 
-import GoatSwim.TimeFrame.Number
 import GoatSwim.TimeFrame.Types
 import GoatSwim.Util
 
@@ -43,3 +41,4 @@ extract :: [Bool]          -- ^ bits
         -> Int             -- ^ valid bits
         -> (Int64, [Bool]) -- ^ number & bits
 extract xs n = first (decodeNumber n) (splitAt n xs)
+  where decodeNumber valid bits = fromBools bits - (2 ^ (valid - 1))

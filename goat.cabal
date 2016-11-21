@@ -22,7 +22,6 @@ library
                      , GoatSwim.TimeFrame.Encode
                      , GoatSwim.TimeFrame.Decode
                      , GoatSwim.TimeFrame.Types
-                     , GoatSwim.TimeFrame.Number
                      , GoatSwim.ValueFrame
                      , GoatSwim.ValueFrame.Encode
                      , GoatSwim.ValueFrame.Decode
