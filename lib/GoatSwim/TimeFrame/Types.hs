@@ -20,8 +20,8 @@ data TimeFrame = TimeFrame
 instance Show TimeFrame where
   show (TimeFrame Nothing  _        _   _ ) = "TimeFrame EMPTY"
   show (TimeFrame (Just x) Nothing  _   _ ) = "TimeFrame " ++ show x 
-  show (TimeFrame (Just x) (Just y) len bs) =
-    unwords [ "TimeFrame"
-            , "frst=" ++ show x
-            , "scnd=" ++ show y 
-            , map (bool '1' '0') (take len (unpackBits bs)) ]
+  show (TimeFrame (Just x) (Just y) len bs) = unwords
+    [ "TimeFrame"
+    , "frst=" ++ show x
+    , "scnd=" ++ show y 
+    , map (bool '1' '0') (take len (unpackBits bs)) ]
