@@ -2,8 +2,8 @@ module GoatSwim.TimeFrame.Types
 ( TimeFrame(..)
 ) where
 
+import Data.List
 import Data.Word
-
 import qualified Data.ByteString as B
 
 import GoatSwim.Util
@@ -12,7 +12,7 @@ import GoatSwim.Util
 data TimeFrame = TimeFrame
                  (Maybe Word32) -- ^ first time point
                  (Maybe Word32) -- ^ second time point
-                 Int            -- ^ number of valid bits
+                 Word32         -- ^ number of valid bits
                  B.ByteString   -- ^ bits
                  deriving (Eq)
 
@@ -24,4 +24,4 @@ instance Show TimeFrame where
     [ "TimeFrame"
     , "frst=" ++ show x
     , "scnd=" ++ show y 
-    , map (bool '1' '0') (take len (unpackBits bs)) ]
+    , map (bool '1' '0') (genericTake len (unpackBits bs)) ]

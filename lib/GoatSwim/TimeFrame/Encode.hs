@@ -3,6 +3,7 @@ module GoatSwim.TimeFrame.Encode
 ) where
 
 import Data.Int
+import Data.List
 import Data.Word
 import qualified Data.ByteString as B
 
@@ -12,11 +13,12 @@ import GoatSwim.Util
 -- | Pack a list of time points into a succinct frame form.
 timeEncode :: [Word32]  -- ^ time points
            -> TimeFrame -- ^ succinct frame form
-timeEncode []     = TimeFrame Nothing  Nothing  0 B.empty
-timeEncode [x]    = TimeFrame (Just x) Nothing  0 B.empty
-timeEncode [x, y] = TimeFrame (Just y) (Just x) 0 B.empty
-timeEncode xs     = TimeFrame (Just x) (Just y) (length bits) (packBits bits)
+timeEncode []     = TimeFrame Nothing  Nothing  0     B.empty
+timeEncode [x]    = TimeFrame (Just x) Nothing  0     B.empty
+timeEncode [x, y] = TimeFrame (Just y) (Just x) 0     B.empty
+timeEncode xs     = TimeFrame (Just x) (Just y) valid (packBits bits)
   where
+    valid       = genericLength bits
     bits        = concatMap encode dods             :: [Bool]
     dods        = zipWith sub deltas ((y-x):deltas) :: [Int64]
     deltas      = zipWith (-) times (y:times)       :: [Word32]

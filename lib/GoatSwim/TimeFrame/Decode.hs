@@ -20,10 +20,10 @@ timeDecode (TimeFrame (Just x) (Just y) len bs)
   | B.null bs || len == 0 = [y, x]
   | otherwise             = reverse $ [x, y] ++ map fromIntegral times
   where
-    times  = apply (fromIntegral y) deltas :: [Int64]
-    deltas = apply (sub y x) dods          :: [Int64]
-    dods   = unfoldr decode bits           :: [Int64]
-    bits   = take len (unpackBits bs)      :: [Bool]
+    times  = apply (fromIntegral y) deltas   :: [Int64]
+    deltas = apply (sub y x) dods            :: [Int64]
+    dods   = unfoldr decode bits             :: [Int64]
+    bits   = genericTake len (unpackBits bs) :: [Bool]
     apply n xs = drop 1 $ scanl (+) n xs
 
 -- | Decode a single delta of a delta from a list of bits.
