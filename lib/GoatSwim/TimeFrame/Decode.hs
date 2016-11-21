@@ -43,4 +43,3 @@ extract :: [Bool]          -- ^ bits
         -> Int             -- ^ valid bits
         -> (Int64, [Bool]) -- ^ number & bits
 extract xs n = first (decodeNumber n) (splitAt n xs)
-

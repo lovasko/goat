@@ -25,4 +25,3 @@ instance Show TimeFrame where
             , "frst=" ++ show x
             , "scnd=" ++ show y 
             , map (bool '1' '0') (take len (unpackBits bs)) ]
-

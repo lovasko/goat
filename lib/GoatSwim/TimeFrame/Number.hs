@@ -18,4 +18,3 @@ decodeNumber :: Int    -- ^ valid bits
              -> [Bool] -- ^ bits
              -> Int64  -- ^ number
 decodeNumber valid bits = fromBools bits - (2 ^ (valid - 1))
-

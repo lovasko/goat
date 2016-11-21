@@ -35,4 +35,3 @@ encode dod
   | otherwise                 = header 4 0 ++ toBools dod
   where
     header t f = replicate t True ++ replicate f False
-
