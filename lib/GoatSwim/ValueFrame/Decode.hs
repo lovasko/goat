@@ -7,7 +7,6 @@ import Data.Bits.Floating
 import Data.List
 import Data.List.Split
 import Data.Word
-
 import qualified Data.ByteString as B
 
 import GoatSwim.ValueFrame.Types

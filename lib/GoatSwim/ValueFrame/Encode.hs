@@ -6,7 +6,6 @@ import Data.Bits
 import Data.Bits.Floating
 import Data.List
 import Data.Word
-
 import qualified Data.ByteString as B
 
 import GoatSwim.Util

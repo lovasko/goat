@@ -4,8 +4,9 @@ module GoatSwim.ValueFrame.Types
 
 import Data.Bits.Floating
 import Data.Word
-import GoatSwim.Util
 import qualified Data.ByteString as B
+
+import GoatSwim.Util
 
 -- | Succinct representation of a set of values.
 data ValueFrame = ValueFrame
