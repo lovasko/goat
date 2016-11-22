@@ -60,4 +60,3 @@ surround :: (Int, Int) -- ^ leading and trailing count
          -> [Bool]     -- ^ new list
 surround (lead, trail) xs = replicate lead False ++ xs ++
                             replicate trail False
-

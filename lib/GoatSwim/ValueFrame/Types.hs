@@ -22,4 +22,3 @@ instance Show ValueFrame where
     unwords [ "ValueFrame"
             , "first=" ++ show (coerceToFloat x :: Float)
             , take len $ map (bool '1' '0') (unpackBits bits) ]
-

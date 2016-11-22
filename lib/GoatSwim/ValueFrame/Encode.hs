@@ -66,4 +66,3 @@ core x = (trail, lead)
   where
     lead  = countLeadingZeros x
     trail = countTrailingZeros x
-
