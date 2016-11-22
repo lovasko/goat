@@ -27,7 +27,6 @@ library
                      , GoatSwim.ValueFrame.Decode
                      , GoatSwim.ValueFrame.Types
   build-depends:       base >= 4.7 && < 5
-                     , bifunctors
                      , bytestring
                      , floating-bits
                      , safe

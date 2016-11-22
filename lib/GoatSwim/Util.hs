@@ -1,5 +1,6 @@
 module GoatSwim.Util
 ( bool
+, first
 , fromBools
 , inBounds
 , packBits
@@ -67,4 +68,10 @@ select :: [a]    -- ^ list
 select []     _      = []
 select _      []     = []
 select (x:xs) (b:bs) = bool (x : select xs bs) (select xs bs) b
+
+-- | Apply a function to the first element of a pair.
+first :: (a -> b) -- ^ function
+      -> (a, x)   -- ^ old pair
+      -> (b, x)   -- ^ new pair
+first f (a, x) = (f a, x)
 

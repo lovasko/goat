@@ -2,7 +2,6 @@ module GoatSwim.TimeFrame.Decode
 ( timeDecode
 ) where
 
-import Data.Bifunctor
 import Data.Int
 import Data.List
 import Data.Word
