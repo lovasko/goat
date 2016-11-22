@@ -3,6 +3,7 @@ module GoatSwim.ValueFrame.Types
 ) where
 
 import Data.Bits.Floating
+import Data.List
 import Data.Word
 import qualified Data.ByteString as B
 
@@ -11,7 +12,7 @@ import GoatSwim.Util
 -- | Succinct representation of a set of values.
 data ValueFrame = ValueFrame
                   (Maybe Word32) -- ^ first value
-                  Int            -- ^ number of valid bits
+                  Word32         -- ^ number of valid bits
                   B.ByteString   -- ^ bits
                   deriving (Eq)
 
@@ -21,4 +22,4 @@ instance Show ValueFrame where
   show (ValueFrame (Just x) len bs) = unwords
     [ "ValueFrame"
     , "first=" ++ show (coerceToFloat x :: Float)
-    , take len $ map (bool '1' '0') (unpackBits bs) ]
+    , genericTake len $ map (bool '1' '0') (unpackBits bs) ]

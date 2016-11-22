@@ -14,12 +14,13 @@ import GoatSwim.ValueFrame.Types
 -- | Encode a list of float values into a succinct value frame.
 valueEncode :: [Float]    -- ^ data values
             -> ValueFrame -- ^ succinct frame form
-valueEncode [] = ValueFrame Nothing 0 B.empty
-valueEncode xs = ValueFrame (Just $ head ys) (length bits) (packBits bits)
+valueEncode [] = ValueFrame Nothing          0     B.empty
+valueEncode xs = ValueFrame (Just $ head ys) valid (packBits bits)
   where
-    bits = concat $ snd $ mapAccumL encode (16, 16) xors :: [Bool]
-    xors = zipWith xor ys (tail ys)                      :: [Word32]
-    ys   = map coerceToWord xs                           :: [Word32]
+    valid = genericLength bits
+    bits  = concat $ snd $ mapAccumL encode (16, 16) xors :: [Bool]
+    xors  = zipWith xor ys (tail ys)                      :: [Word32]
+    ys    = map coerceToWord xs                           :: [Word32]
 
 -- | Encode a single value based on the previous leading and trailing
 -- bit count.

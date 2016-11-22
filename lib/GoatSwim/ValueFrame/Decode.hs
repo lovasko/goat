@@ -18,14 +18,14 @@ type Context = ([Bool], (Int, Int))
 -- | Unpack value points from the succinct frame.
 valueDecode :: ValueFrame -- ^ succinct frame form
             -> [Float]    -- ^ data points
-valueDecode (ValueFrame Nothing  _   _    ) = []
-valueDecode (ValueFrame (Just x) len bytes)
-  | B.null bytes || len == 0 = [coerceToFloat x]
-  | otherwise                = map coerceToFloat (x:xors)
+valueDecode (ValueFrame Nothing  _   _ ) = []
+valueDecode (ValueFrame (Just x) len bs)
+  | B.null bs || len == 0 = [coerceToFloat x]
+  | otherwise             = map coerceToFloat (x:xors)
   where
     xors = drop 1 $ scanl xor x ws         :: [Word32]
     ws   = unfoldr decode (bits, (16, 16)) :: [Word32]
-    bits = take len (unpackBits bytes)     :: [Bool]
+    bits = genericTake len (unpackBits bs) :: [Bool]
 
 -- | Decode a single XORed value.
 decode :: Context                 -- ^ available bits & current bounds
