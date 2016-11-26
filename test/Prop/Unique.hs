@@ -2,13 +2,14 @@ module Prop.Unique
 ( uniqueProps
 ) where
 
-import Data.List
 import Data.Word
 import Test.QuickCheck
+import qualified Data.Serialize as S
 
 import GoatSwim.TimeFrame
 import GoatSwim.Util
 import GoatSwim.ValueFrame
+import Util
 
 -- | All properties that test for conversion uniqueness.
 uniqueProps :: [(String, Property)]
@@ -16,7 +17,9 @@ uniqueProps =
   [ ("uniqueToBools",       property uniqueToBools)
   , ("uniqueFromBools",     property uniqueFromBools)
   , ("uniqueEncTimeFrame",  property uniqueEncTimeFrame)
-  , ("uniqueEncValueFrame", property uniqueEncValueFrame) ]
+  , ("uniqueEncValueFrame", property uniqueEncValueFrame)
+  , ("uniquePutTimeFrame",  property uniquePutTimeFrame)
+  , ("uniquePutValueFrame", property uniquePutValueFrame) ]
 
 -- | Two different words should always map to two different bit lists and two
 -- equal words should always map to equal lists.
@@ -51,9 +54,8 @@ uniqueEncTimeFrame xs ys
   | as == bs  = timeEncode as == timeEncode bs
   | otherwise = timeEncode as /= timeEncode bs
   where
-    as   = norm xs
-    bs   = norm ys
-    norm = (nub . sort)
+    as = fixTime xs
+    bs = fixTime ys
 
 -- | Two diffent data series always map to two diffent ValueFrames and
 -- equal data series always map to equal ValueFrames.
@@ -64,3 +66,24 @@ uniqueEncValueFrame xs ys
   | xs == ys  = valueEncode xs == valueEncode ys
   | otherwise = valueEncode xs /= valueEncode ys
 
+-- | Two different serialized versions of time series always map 
+uniquePutTimeFrame :: [Word32]
+                   -> [Word32]
+                   -> Bool
+uniquePutTimeFrame xs ys
+  | af == bf  = S.encode af == S.encode bf
+  | otherwise = S.encode af /= S.encode bf
+  where
+    af = timeEncode (fixTime xs)
+    bf = timeEncode (fixTime ys)
+
+-- | Two different serialized versions of time series always map 
+uniquePutValueFrame :: [Float]
+                    -> [Float]
+                    -> Bool
+uniquePutValueFrame xs ys
+  | af == bf  = S.encode af == S.encode bf
+  | otherwise = S.encode af /= S.encode bf
+  where
+    af = valueEncode xs
+    bf = valueEncode ys

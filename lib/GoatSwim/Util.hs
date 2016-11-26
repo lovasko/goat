@@ -1,5 +1,7 @@
 module GoatSwim.Util
-( bool
+( aiGetByteString
+, aiPutByteString
+, bool
 , first
 , fromBools
 , inBounds
@@ -13,8 +15,8 @@ module GoatSwim.Util
 import Data.Bits
 import Data.Int
 import Data.List.Split (chunksOf)
+import Data.Serialize
 import Data.Word
-
 import qualified Data.ByteString as B
 
 -- | Check whether a value falls within bounds (borders included).
@@ -75,3 +77,11 @@ first :: (a -> b) -- ^ function
       -> (b, x)   -- ^ new pair
 first f (a, x) = (f a, x)
 
+-- | Architecture-independent serialization of a strict ByteString.
+aiPutByteString :: B.ByteString -- ^ bytestring to parse
+                -> Put          -- ^ writer
+aiPutByteString bs = putListOf putWord8 (B.unpack bs)
+
+-- | Architecture-independent deserialization of a lazy ByteString.
+aiGetByteString :: Get B.ByteString -- ^ reader
+aiGetByteString = fmap B.pack $ getListOf getWord8

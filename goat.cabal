@@ -28,6 +28,7 @@ library
                      , GoatSwim.ValueFrame.Types
   build-depends:       base >= 4.7 && < 5
                      , bytestring
+                     , cereal
                      , floating-bits
                      , safe
                      , split
@@ -50,6 +51,7 @@ test-suite goat-test
                      , Prop.Id
                      , Prop.Unique
   build-depends:       base
+                     , cereal
                      , QuickCheck
                      , goat
                      , bytestring

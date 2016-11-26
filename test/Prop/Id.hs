@@ -4,15 +4,15 @@ module Prop.Id
 ( idProps
 ) where
 
-import Data.List
 import Data.Word
 import Test.QuickCheck
-
 import qualified Data.ByteString as B
+import qualified Data.Serialize as S
 
 import GoatSwim.TimeFrame
 import GoatSwim.Util
 import GoatSwim.ValueFrame
+import Util
 
 
 instance Arbitrary B.ByteString where
@@ -28,7 +28,9 @@ idProps =
   , ("idPackUnpackBits",   property idPackUnpackBits)
   , ("idUnpackPackBits",   property idUnpackPackBits)
   , ("idEncDecTimeFrame",  property idEncDecTimeFrame)
-  , ("idEncDecValueFrame", property idEncDecValueFrame) ]
+  , ("idEncDecValueFrame", property idEncDecValueFrame)
+  , ("idPutGetTimeFrame",  property idPutGetTimeFrame)
+  , ("idPutGetValueFrame", property idPutGetValueFrame) ]
 
 -- | The two functions from/toBools must form an identity when composed.
 idFromToBools :: Word64
@@ -54,8 +56,7 @@ idUnpackPackBits bs = bs == (packBits (unpackBits bs))
 -- composed.
 idEncDecTimeFrame :: [Word32]
                   -> Bool
-idEncDecTimeFrame xs = let ys = reverse $ nub $ sort xs in
-                       ys == timeDecode (timeEncode ys)
+idEncDecTimeFrame xs = fixTime xs == timeDecode (timeEncode (fixTime xs))
 
 -- | The two functions valueDecode/Encode must form an identity when
 -- composed.
@@ -63,3 +64,22 @@ idEncDecValueFrame :: [Float]
                    -> Bool
 idEncDecValueFrame xs = xs == valueDecode (valueEncode xs)
 
+-- | The two Data.Serialize functions get/put implemented for TimeFrame
+-- must form an identity when composed.
+idPutGetTimeFrame :: [Word32]
+                  -> Bool
+idPutGetTimeFrame xs = result $ S.decode (S.encode frame)
+  where
+    frame = timeEncode (fixTime xs)
+    result (Right decFrame) = frame == decFrame
+    result (Left _)         = False
+
+-- | The two Data.Serialize functions get/put implemented for ValueFrame
+-- must form an identity when composed.
+idPutGetValueFrame :: [Float]
+                   -> Bool
+idPutGetValueFrame xs = result $ S.decode (S.encode frame)
+  where
+    frame = valueEncode xs
+    result (Right decFrame) = frame == decFrame
+    result (Left _)         = False

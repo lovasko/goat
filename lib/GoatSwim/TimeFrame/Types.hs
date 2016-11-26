@@ -3,6 +3,7 @@ module GoatSwim.TimeFrame.Types
 ) where
 
 import Data.List
+import Data.Serialize
 import Data.Word
 import qualified Data.ByteString as B
 
@@ -25,3 +26,21 @@ instance Show TimeFrame where
     , "frst=" ++ show x
     , "scnd=" ++ show y 
     , map (bool '1' '0') (genericTake len (unpackBits bs)) ]
+
+-- | Binary serialization of the TimeFrame type.
+instance Serialize TimeFrame where
+  -- | Encoding of the TimeFrame type. All integers are encoded with
+  -- big-endian byte order.
+  put (TimeFrame x y len bs) = do
+    putMaybeOf putWord32be x
+    putMaybeOf putWord32be y
+    putWord32be len
+    aiPutByteString bs
+
+  -- | Decoding of the TimeFrame type.
+  get = do
+    x   <- getMaybeOf getWord32be
+    y   <- getMaybeOf getWord32be
+    len <- getWord32be
+    bs  <- aiGetByteString
+    return $ TimeFrame x y len bs
