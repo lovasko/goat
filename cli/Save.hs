@@ -12,20 +12,20 @@ import qualified Data.Text.IO as T
 
 import GoatSwim.TimeFrame
 import GoatSwim.ValueFrame
+import Format
 import Story
-import Variant
 
 
 -- | Save a story into a file in the uncompressed format.
-saveNormal :: Story        -- ^ story
-           -> B.ByteString -- ^ binary encoded story
-saveNormal story = S.runPut (mapM_ rule story)
+saveRaw :: Story        -- ^ story
+        -> B.ByteString -- ^ binary encoded story
+saveRaw story = S.runPut (mapM_ rule story)
   where rule = S.putTwoOf S.putWord32be S.putFloat32be
 
 -- | Save a story into a file in the compressed format.
-saveCompressed :: Story        -- ^ story
-               -> B.ByteString -- ^ binary encoded story
-saveCompressed story = S.runPut (S.put times >> S.put values)
+saveZip :: Story        -- ^ story
+        -> B.ByteString -- ^ binary encoded story
+saveZip story = S.runPut (S.put times >> S.put values)
   where
     times  = timeEncode  (map fst story)
     values = valueEncode (map snd story)
@@ -35,7 +35,7 @@ storySave :: Story    -- ^ story
           -> FilePath -- ^ file path
           -> IO ()    -- ^ action
 storySave story path =
-  case varIdentify path of
-    Left  err           -> T.putStrLn ("ERROR:" <> err)
-    Right VarNormal     -> B.writeFile path (saveNormal     story)
-    Right VarCompressed -> B.writeFile path (saveCompressed story)
+  case fmtIdentify path of
+    Left  err    -> T.putStrLn ("ERROR:" <> err)
+    Right FmtRaw -> B.writeFile path (saveRaw story)
+    Right FmtZip -> B.writeFile path (saveZip story)
