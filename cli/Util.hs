@@ -1,6 +1,7 @@
 module Util
 ( eitherFirst
 , showTime
+, textShow
 ) where
 
 import Data.Word
@@ -15,10 +16,24 @@ eitherFirst :: (a -> x)   -- ^ function
 eitherFirst f (Left a)  = Left (f a)
 eitherFirst _ (Right b) = Right b
 
+-- | Convert any Showable type into a Text instance.
+textShow :: (Show a)
+         => a      -- ^ any type
+         -> T.Text -- ^ textual representation
+textShow = (T.pack . show)
+
+-- | If/else construct.
+bool :: a    -- ^ True option
+     -> a    -- ^ False option
+     -> Bool -- ^ bool
+     -> a    -- ^ result
+bool x _ True  = x
+bool _ y False = y
+
 -- | Convert a timestamp to a human-readable form.
 showTime :: Bool   -- ^ keep in timestamp form
          -> Word32 -- ^ timestamp
          -> T.Text -- ^ textual representation
-showTime True  ts = T.pack (show ts)
+showTime True  ts = textShow ts
 showTime False ts = T.pack (formatTime defaultTimeLocale "%F %T" ts')
   where ts' = posixSecondsToUTCTime (fromIntegral ts)
