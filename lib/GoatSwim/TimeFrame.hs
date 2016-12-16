@@ -7,4 +7,3 @@ module GoatSwim.TimeFrame
 import GoatSwim.TimeFrame.Decode
 import GoatSwim.TimeFrame.Encode
 import GoatSwim.TimeFrame.Types
-

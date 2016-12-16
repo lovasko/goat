@@ -29,4 +29,3 @@ instance Frame Word32 TimeFrame where
   frameDecode = timeDecode
   frameEncode = timeEncode
   frameHead (TimeFrame first _ _ _) = first
-
