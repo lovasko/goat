@@ -1,30 +1,30 @@
 name:                goat
 version:             0.1.0.0
-synopsis:            Time Series Database
+synopsis:            Time Series Compression
 description:         Please see README.md
-homepage:            https://github.com/lovasko/goat#readme
+homepage:            https://github.com/lovasko/goat
 license:             BSD3
 license-file:        LICENSE
-author:              Daniel Lovasko
-maintainer:          daniel.lovasko@gmail.com
+author:              Daniel Lovasko <daniel.lovasko@gmail.com>
+maintainer:          Daniel Lovasko <daniel.lovasko@gmail.com>
 copyright:           2016 Daniel Lovasko
-category:            Database
+category:            Codec
 build-type:          Simple
 cabal-version:       >=1.10
 
 library
   hs-source-dirs:      lib
-  exposed-modules:     GoatSwim.TimeFrame
-                     , GoatSwim.Util
+  exposed-modules:     GoatSwim.Fluid
                      , GoatSwim.Frame
-                     , GoatSwim.Fluid
                      , GoatSwim.Story
-                     , GoatSwim.TimeFrame.Encode
+                     , GoatSwim.TimeFrame
                      , GoatSwim.TimeFrame.Decode
+                     , GoatSwim.TimeFrame.Encode
                      , GoatSwim.TimeFrame.Types
+                     , GoatSwim.Util
                      , GoatSwim.ValueFrame
-                     , GoatSwim.ValueFrame.Encode
                      , GoatSwim.ValueFrame.Decode
+                     , GoatSwim.ValueFrame.Encode
                      , GoatSwim.ValueFrame.Types
   build-depends:       base >= 4.7 && < 5
                      , bytestring
@@ -34,15 +34,6 @@ library
                      , split
   default-language:    Haskell2010
 
-executable goatswim
-  main-is:             Main.hs
-  hs-source-dirs:      cli
-  build-depends:       base >= 4.7 && < 5
-                     , goat
-                     , bytestring
-                     , optparse-applicative
-  default-language:    Haskell2010
-
 test-suite goat-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
@@ -50,11 +41,11 @@ test-suite goat-test
   other-modules:       Prop.Fluid
                      , Prop.Id
                      , Prop.Unique
-  build-depends:       base
-                     , cereal
+  build-depends:       base >= 4.7 && < 5
                      , QuickCheck
-                     , goat
                      , bytestring
+                     , cereal
+                     , goat
                      , safe
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
