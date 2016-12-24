@@ -1,6 +1,7 @@
 # GoatSwim
 
 [![Build Status](https://travis-ci.org/lovasko/goat.svg?branch=master)](https://travis-ci.org/lovasko/goat)
+[![Code Climate](https://codeclimate.com/github/lovasko/goat/badges/gpa.svg)](https://codeclimate.com/github/lovasko/goat)
 [![Goat Status](https://img.shields.io/badge/goat-swimming-blue.svg)](https://github.com/lovasko/goat)
 
 GoatSwim is a time-series database heavily inspired by the Gorilla paper
