@@ -1,3 +1,17 @@
+{- |
+Module      : Codec.Goat.ValueFrame.Types
+Description : ValueFrame type definition
+Copyright   : (c) Daniel Lovasko, 2016
+License     : BSD3
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+The ValueFrame type represents the compressed form of data point values.
+It is an instance of Eq and Serialize typeclasses.
+-}
+
 module GoatSwim.ValueFrame.Types
 ( ValueFrame(..)
 ) where
