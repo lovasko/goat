@@ -1,3 +1,16 @@
+{- |
+Module      : Codec.Goat.Util
+Description : Various utility functions
+Copyright   : (c) Daniel Lovasko, 2016
+License     : BSD3
+
+Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
+Stability   : stable
+Portability : portable
+
+Various utility functions used throughout the project.
+-}
+
 module GoatSwim.Util
 ( aiGetByteString
 , aiPutByteString
@@ -12,6 +25,7 @@ module GoatSwim.Util
 , unpackBits
 ) where
 
+import Control.Applicative
 import Data.Bits
 import Data.Int
 import Data.List.Split (chunksOf)
@@ -84,4 +98,4 @@ aiPutByteString bs = putListOf putWord8 (B.unpack bs)
 
 -- | Architecture-independent deserialization of a lazy ByteString.
 aiGetByteString :: Get B.ByteString -- ^ reader
-aiGetByteString = fmap B.pack $ getListOf getWord8
+aiGetByteString = B.pack <$> getListOf getWord8
