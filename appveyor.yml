@@ -5,7 +5,7 @@ build: off
 
 before_test:
 - curl -ostack.zip -L --insecure http://www.stackage.org/stack/windows-i386
-- 7z x stack.zip stack.exe
+- 7z x stack.zip stack.exe > nul
 
 clone_folder: "c:\\project"
 environment:
