@@ -13,19 +13,19 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  hs-source-dirs:      lib
-  exposed-modules:     GoatSwim.Fluid
-                     , GoatSwim.Frame
-                     , GoatSwim.Story
-                     , GoatSwim.TimeFrame
-                     , GoatSwim.TimeFrame.Decode
-                     , GoatSwim.TimeFrame.Encode
-                     , GoatSwim.TimeFrame.Types
-                     , GoatSwim.Util
-                     , GoatSwim.ValueFrame
-                     , GoatSwim.ValueFrame.Decode
-                     , GoatSwim.ValueFrame.Encode
-                     , GoatSwim.ValueFrame.Types
+  hs-source-dirs:      src
+  exposed-modules:     Codec.Goat.Fluid
+                     , Codec.Goat.Frame
+                     , Codec.Goat.Story
+                     , Codec.Goat.TimeFrame
+                     , Codec.Goat.TimeFrame.Decode
+                     , Codec.Goat.TimeFrame.Encode
+                     , Codec.Goat.TimeFrame.Types
+                     , Codec.Goat.Util
+                     , Codec.Goat.ValueFrame
+                     , Codec.Goat.ValueFrame.Decode
+                     , Codec.Goat.ValueFrame.Encode
+                     , Codec.Goat.ValueFrame.Types
   build-depends:       base >= 4.7 && < 5
                      , bytestring
                      , cereal
