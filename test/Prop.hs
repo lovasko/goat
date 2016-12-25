@@ -8,7 +8,7 @@ import Prop.Fluid
 import Prop.Id
 import Prop.Unique
 
-import GoatSwim.Util
+import Codec.Goat.Util
 
 -- | Print a name of the property test and execute the QuickCheck
 -- algorithm.

@@ -4,8 +4,8 @@ module Prop.Fluid
 
 import Test.QuickCheck
 
-import GoatSwim.Fluid
-import GoatSwim.ValueFrame
+import Codec.Goat.Fluid
+import Codec.Goat.ValueFrame
 
 -- | All tests assert the correct functionality of the Fluid type.
 fluidProps :: [(String, Property)]

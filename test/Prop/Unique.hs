@@ -6,9 +6,9 @@ import Data.Word
 import Test.QuickCheck
 import qualified Data.Serialize as S
 
-import GoatSwim.TimeFrame
-import GoatSwim.Util
-import GoatSwim.ValueFrame
+import Codec.Goat.TimeFrame
+import Codec.Goat.Util
+import Codec.Goat.ValueFrame
 import Util
 
 -- | All properties that test for conversion uniqueness.
