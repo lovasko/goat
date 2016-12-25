@@ -11,7 +11,7 @@ Portability : portable
 Decoding of the compressed frame form into raw data point timestamps.
 -}
 
-module GoatSwim.TimeFrame.Decode
+module Codec.Goat.TimeFrame.Decode
 ( timeDecode
 ) where
 
