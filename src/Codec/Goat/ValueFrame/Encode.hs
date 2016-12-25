@@ -15,6 +15,7 @@ module Codec.Goat.ValueFrame.Encode
 ( valueEncode
 ) where
 
+import Control.Arrow
 import Data.Bits
 import Data.Bits.Floating
 import Data.List
@@ -45,7 +46,7 @@ encode bounds x
   | otherwise = (newBounds, [True, True]  ++ outside newBounds bits)
   where
     fits      = within bounds newBounds
-    newBounds = core x
+    newBounds = (countTrailingZeros &&& countLeadingZeros) x
     bits      = toBools x
 
 -- | Handle the encoding case where the core part of the word does not fit
@@ -68,14 +69,3 @@ within :: (Int, Int) -- ^ existing bounds
        -> (Int, Int) -- ^ new bounds
        -> Bool       -- ^ decision
 within (a, b) (na, nb) = na >= a && nb >= b
-
--- | Find the core of a 32-bit  word surrounded by zero bits from
--- both sides.
--- NOTE: this function swaps the lead/trail elements, as the functions
--- from the Data.Bits module interpret data differently.
-core :: Word32     -- ^ 32-bit word
-     -> (Int, Int) -- ^ non-zero core bounds
-core x = (trail, lead)
-  where
-    lead  = countLeadingZeros x
-    trail = countTrailingZeros x
