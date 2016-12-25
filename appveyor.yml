@@ -15,4 +15,4 @@ environment:
 test_script:
 - stack --no-terminal setup
 - stack --no-terminal install
-- echo "" | - stack build --no-terminal --test --pedantic --test-arguments 20000
+- stack --no-terminal build --pedantic --test --test-arguments 20000
