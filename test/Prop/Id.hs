@@ -50,7 +50,7 @@ idPackUnpackBits xs = xs == take (length xs) (unpackBits (packBits xs))
 -- | The two functions unpack/packBits must form an identity when composed.
 idUnpackPackBits :: B.ByteString
                  -> Bool
-idUnpackPackBits bs = bs == (packBits (unpackBits bs))
+idUnpackPackBits bs = bs == packBits (unpackBits bs)
 
 -- | The two functions timeDecode/Encode must form an identity when
 -- composed.
