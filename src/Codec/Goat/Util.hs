@@ -25,7 +25,6 @@ module Codec.Goat.Util
 , unpackBits
 ) where
 
-import Control.Applicative
 import Data.Bits
 import Data.Int
 import Data.List.Split (chunksOf)
