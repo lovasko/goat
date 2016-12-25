@@ -9,4 +9,4 @@ import Data.Word
 -- timeEncode function.
 fixTime :: [Word32]
         -> [Word32]
-fixTime = reverse . sort . nub
+fixTime = sortBy (flip compare) . nub
