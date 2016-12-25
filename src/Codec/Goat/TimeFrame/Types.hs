@@ -34,11 +34,11 @@ data TimeFrame = TimeFrame
 -- | Pretty-printing of the TimeFrame type.
 instance Show TimeFrame where
   show (TimeFrame Nothing  _        _   _ ) = "TimeFrame EMPTY"
-  show (TimeFrame (Just x) Nothing  _   _ ) = "TimeFrame " ++ show x 
+  show (TimeFrame (Just x) Nothing  _   _ ) = "TimeFrame " ++ show x
   show (TimeFrame (Just x) (Just y) len bs) = unwords
     [ "TimeFrame"
     , "frst=" ++ show x
-    , "scnd=" ++ show y 
+    , "scnd=" ++ show y
     , map (bool '1' '0') (genericTake len (unpackBits bs)) ]
 
 -- | Binary serialization of the TimeFrame type. All integers are using
