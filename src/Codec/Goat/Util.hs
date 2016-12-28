@@ -8,7 +8,7 @@ Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
 Portability : portable
 
-Various utility functions used throughout the project.
+Various utility functions used throughout the codebase.
 -}
 
 module Codec.Goat.Util
@@ -41,7 +41,7 @@ inBounds :: (Ord a)
          -> Bool -- ^ decision
 inBounds lower upper value = lower <= value && value <= upper
 
--- | Semantically correct substitution of two words.
+-- | Correct subtraction of two unsigned integers.
 sub :: Word32 -- ^ first word
     -> Word32 -- ^ second word
     -> Int64  -- ^ result
@@ -57,7 +57,7 @@ unpackBits :: B.ByteString -- ^ bits
            -> [Bool]       -- ^ bytestring
 unpackBits b = concatMap toBools (B.unpack b)
 
--- | Endomorphism on the boolean type.
+-- | Functional equivalent of the 'if/then/else' construct.
 bool :: a    -- ^ True option
      -> a    -- ^ False option
      -> Bool -- ^ bool
