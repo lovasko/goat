@@ -32,6 +32,7 @@ import Data.Serialize
 import Data.Word
 import qualified Data.ByteString as B
 
+
 -- | Check whether a value falls within bounds (borders included).
 inBounds :: (Ord a)
          => a    -- ^ lower bound
