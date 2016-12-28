@@ -1,6 +1,6 @@
 {- |
 Module      : Codec.Goat.Story
-Description : High-level time series
+Description : High-level time series API
 Copyright   : (c) Daniel Lovasko, 2016
 License     : BSD3
 
@@ -9,8 +9,8 @@ Stability   : stable
 Portability : portable
 
 The Story type provides an easy-to-use high-level interface to a time
-series object. This module implements building the structure and querying
-it with time intervals.
+series object. This module implements the building of the time series
+structure and enables interval queries that return data point values.
 -}
 
 module Codec.Goat.Story
@@ -28,14 +28,14 @@ import Codec.Goat.TimeFrame
 import Codec.Goat.Util
 import Codec.Goat.ValueFrame
 
--- | Central type representing a time/value series.
+-- | Representation of a time series object.
 data Story = Story
              Word32                   -- ^ time window size
-             Word32                   -- ^ current time window
-             (Fluid Word32 TimeFrame) -- ^ time points fluid
-             (Fluid Float ValueFrame) -- ^ data points fluid
+             Word32                   -- ^ current time window number
+             (Fluid Word32 TimeFrame) -- ^ times fluid
+             (Fluid Float ValueFrame) -- ^ values fluid
 
--- | Pretty-printinf for the Story type.
+-- | Pretty-printing for the Story type.
 instance Show Story where
   show (Story wsz win ft fv) =
     unwords [ "Story"
@@ -44,7 +44,9 @@ instance Show Story where
             , "times="  ++ show ft
             , "values=" ++ show fv ]
 
--- | Create a new story.
+-- | Create a new empty story. The ratio of raw/compressed sections is
+-- 12/74. These fields will be configurable in the future versions of the
+-- module.
 storyNew :: Word32 -- ^ time window size
          -> Word32 -- ^ current time window
          -> Story  -- ^ new story
