@@ -33,13 +33,12 @@ import Data.Word
 import qualified Data.ByteString as B
 
 
--- | Check whether a value falls within bounds (borders included).
+-- | Check whether a value falls between the bounds (inclusive).
 inBounds :: (Ord a)
-         => a    -- ^ lower bound
-         -> a    -- ^ upper bound
-         -> a    -- ^ value
-         -> Bool -- ^ decision
-inBounds lower upper value = lower <= value && value <= upper
+         => (a, a) -- ^ bounds
+         -> a      -- ^ value
+         -> Bool   -- ^ decision
+inBounds (lo, hi) x = lo <= x && x <= hi
 
 -- | Correct subtraction of two unsigned integers.
 sub :: Word32 -- ^ first word

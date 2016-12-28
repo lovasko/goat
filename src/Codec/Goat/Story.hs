@@ -75,13 +75,13 @@ storyAppend (Story wsz win ft fv) (newTime, newValue)
 storyQuery :: Story             -- ^ story
            -> (Word32, Word32)  -- ^ interval
            -> [(Word32, Float)] -- ^ times & values
-storyQuery (Story _ _ ft fv) (hi, lo)
+storyQuery (Story _ _ ft fv) ival
   | all (==False) heads = []
   | otherwise           = zip times values
   where
     times  = fluidSelect ft heads
     values = fluidSelect fv heads
-    heads  = map (maybe False (inBounds hi lo)) (fluidHeads ft)
+    heads  = map (maybe False (inBounds ival)) (fluidHeads ft)
 
 -- | Output a list of all time/value pairs stored in the story.
 storyDump :: Story             -- ^ story

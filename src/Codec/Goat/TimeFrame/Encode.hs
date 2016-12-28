@@ -41,11 +41,11 @@ timeEncode xs     = TimeFrame (Just x) (Just y) valid (packBits bits)
 encode :: Int64  -- ^ delta of a delta
        -> [Bool] -- ^ new bits
 encode dod
-  | dod == 0                  = header 0 1
-  | inBounds   (-64)   63 dod = header 1 1 ++ encodeNumber  7 dod
-  | inBounds  (-256)  255 dod = header 2 1 ++ encodeNumber  9 dod
-  | inBounds (-2048) 2047 dod = header 3 1 ++ encodeNumber 12 dod
-  | otherwise                 = header 4 0 ++ toBools dod
+  | dod == 0                   = header 0 1
+  | inBounds (  -64,   63) dod = header 1 1 ++ encodeNumber  7 dod
+  | inBounds ( -256,  255) dod = header 2 1 ++ encodeNumber  9 dod
+  | inBounds (-2048, 2047) dod = header 3 1 ++ encodeNumber 12 dod
+  | otherwise                  = header 4 0 ++ toBools dod
   where
     header t f = replicate t True ++ replicate f False
     encodeNumber valid x = take valid $ toBools (x + (2 ^ (valid - 1)))
