@@ -1,6 +1,6 @@
 {- |
 Module      : Codec.Goat
-Description : Top-level module file
+Description : Top-level module file (intended for import)
 Copyright   : (c) Daniel Lovasko, 2016
 License     : BSD3
 
