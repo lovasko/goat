@@ -37,12 +37,12 @@ data Story = Story
 
 -- | Pretty-printing for the Story type.
 instance Show Story where
-  show (Story wsz win ft fv) =
-    unwords [ "Story"
-            , "wsz="    ++ show wsz
-            , "win="    ++ show win
-            , "times="  ++ show ft
-            , "values=" ++ show fv ]
+  show (Story wsz win ft fv) = unwords
+    [ "Story"
+    , "wsz="    ++ show wsz
+    , "win="    ++ show win
+    , "times="  ++ show ft
+    , "values=" ++ show fv ]
 
 -- | Create a new empty story. The ratio of raw/compressed sections is
 -- 12/74. These fields will be configurable in the future versions of the
