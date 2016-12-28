@@ -48,15 +48,16 @@ instance Show Story where
 -- 12/74. These fields will be configurable in the future versions of the
 -- module.
 storyNew :: Word32 -- ^ time window size
-         -> Word32 -- ^ current time window
+         -> Word32 -- ^ current time window number
          -> Story  -- ^ new story
 storyNew wsz win = Story wsz win (fluidNew (12, 74)) (fluidNew (12, 74))
 
--- | Add new time-data pair to the story. The function will return Nothing
--- in case that the data point was invalid or when the time point was
--- invalid with respect to already existing time points.
+-- | Add new time/value pair to the story. The function will return
+-- Nothing in case that the value was invalid (NaN or Infinity) or when
+-- the time was invalid with respect to previously added times (breaking
+-- the series monotonicity).
 storyAppend :: Story           -- ^ old story
-            -> (Word32, Float) -- ^ time-data pair
+            -> (Word32, Float) -- ^ time & value
             -> Maybe Story     -- ^ new story
 storyAppend (Story wsz win ft fv) (newTime, newValue)
   | invalid   = Nothing
@@ -70,10 +71,10 @@ storyAppend (Story wsz win ft fv) (newTime, newValue)
     newFt    = fluidAppend (bool ft (fluidShift ft) (newWin == win)) newTime
     newFv    = fluidAppend (bool fv (fluidShift fv) (newWin == win)) newValue
 
--- | Query the story for time-data pairs within specified time limits.
+-- | Query the story for time/value pairs within the specified time limit.
 storyQuery :: Story             -- ^ story
-           -> (Word32, Word32)  -- ^ queried interval
-           -> [(Word32, Float)] -- ^ time/data pairs
+           -> (Word32, Word32)  -- ^ interval
+           -> [(Word32, Float)] -- ^ times & values
 storyQuery (Story _ _ ft fv) (hi, lo)
   | all (==False) heads = []
   | otherwise           = zip times values
@@ -82,7 +83,7 @@ storyQuery (Story _ _ ft fv) (hi, lo)
     values = fluidSelect fv heads
     heads  = map (maybe False (inBounds hi lo)) (fluidHeads ft)
 
--- | Output a list of all time/value pairs stored for the story.
+-- | Output a list of all time/value pairs stored in the story.
 storyDump :: Story             -- ^ story
-          -> [(Word32, Float)] -- ^ time/data pairs
+          -> [(Word32, Float)] -- ^ times & values
 storyDump (Story _ _ ft fv) = zip (fluidDump ft) (fluidDump fv)
