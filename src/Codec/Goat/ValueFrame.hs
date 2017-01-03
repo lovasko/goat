@@ -1,7 +1,7 @@
 {- |
 Module      : Codec.Goat.ValueFrame
 Description : Top-level header for value compression
-Copyright   : (c) Daniel Lovasko, 2016
+Copyright   : (c) Daniel Lovasko, 2016-2017
 License     : BSD3
 
 Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
