@@ -71,5 +71,4 @@ outside xs = (fromBools number, (ys, (lead, trail)))
 surround :: (Int, Int) -- ^ leading and trailing count
          -> [Bool]     -- ^ old list
          -> [Bool]     -- ^ new list
-surround (lead, trail) xs = replicate lead False ++ xs ++
-                            replicate trail False
+surround (lead, trail) = (replicate lead False ++) . (++ replicate trail False)
