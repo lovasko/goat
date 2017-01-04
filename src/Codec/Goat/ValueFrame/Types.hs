@@ -9,7 +9,7 @@ Stability   : stable
 Portability : portable
 
 The ValueFrame type represents the compressed form of data point values.
-It is an instance of Eq and Serialize typeclasses.
+It is an instance of Eq, Show and Serialize typeclasses.
 -}
 
 module Codec.Goat.ValueFrame.Types
