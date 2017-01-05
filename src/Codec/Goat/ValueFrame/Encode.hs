@@ -44,9 +44,10 @@ encode bounds x
   | fits      = (bounds,    [True, False] ++ slice bounds bits)
   | otherwise = (newBounds, [True, True]  ++ outside newBounds bits)
   where
-    fits      = within bounds newBounds
     newBounds = (countTrailingZeros &&& countLeadingZeros) x
     bits      = toBools x
+    fits      = within bounds newBounds
+    within (a, b) (na, nb) = na >= a && nb >= b
 
 -- | Handle the encoding case where the core part of the word does not fit
 -- into the rolling bounds.
@@ -64,9 +65,3 @@ slice :: (Int, Int) -- ^ bounds
       -> [a]        -- ^ list
       -> [a]        -- ^ sublist
 slice (lead, trail) xs = take (32-lead-trail) (drop lead xs)
-
--- | Check whether bounds like within other bounds.
-within :: (Int, Int) -- ^ existing bounds
-       -> (Int, Int) -- ^ new bounds
-       -> Bool       -- ^ decision
-within (a, b) (na, nb) = na >= a && nb >= b
