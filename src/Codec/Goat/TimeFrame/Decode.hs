@@ -23,6 +23,7 @@ import qualified Data.ByteString as B
 import Codec.Goat.TimeFrame.Types
 import Codec.Goat.Util
 
+
 -- | Unpack time points from the succinct frame.
 timeDecode :: TimeFrame -- ^ succinct frame form
            -> [Word32]  -- ^ time points

@@ -23,6 +23,7 @@ import qualified Data.ByteString as B
 import Codec.Goat.TimeFrame.Types
 import Codec.Goat.Util
 
+
 -- | Pack a list of time points into a succinct frame form.
 timeEncode :: [Word32]  -- ^ time points
            -> TimeFrame -- ^ succinct frame form

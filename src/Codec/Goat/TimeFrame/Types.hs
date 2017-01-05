@@ -23,6 +23,7 @@ import qualified Data.ByteString as B
 
 import Codec.Goat.Util
 
+
 -- | Succinct representation of a set of time points.
 data TimeFrame = TimeFrame
   (Maybe Word32) -- ^ first time point
