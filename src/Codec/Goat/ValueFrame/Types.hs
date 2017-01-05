@@ -26,10 +26,10 @@ import Codec.Goat.Util
 
 -- | Succinct representation of a set of values.
 data ValueFrame = ValueFrame
-                  (Maybe Word32) -- ^ first value
-                  Word32         -- ^ number of valid bits
-                  B.ByteString   -- ^ bits
-                  deriving (Eq)
+  (Maybe Word32) -- ^ first value
+  Word32         -- ^ number of valid bits
+  B.ByteString   -- ^ bits
+  deriving (Eq)
 
 -- | Pretty-printing of the ValueFrame type.
 instance Show ValueFrame where
