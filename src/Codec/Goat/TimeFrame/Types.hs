@@ -25,11 +25,11 @@ import Codec.Goat.Util
 
 -- | Succinct representation of a set of time points.
 data TimeFrame = TimeFrame
-                 (Maybe Word32) -- ^ first time point
-                 (Maybe Word32) -- ^ second time point
-                 Word32         -- ^ number of valid bits
-                 B.ByteString   -- ^ bits
-                 deriving (Eq)
+  (Maybe Word32) -- ^ first time point
+  (Maybe Word32) -- ^ second time point
+  Word32         -- ^ number of valid bits
+  B.ByteString   -- ^ bits
+  deriving (Eq)
 
 -- | Pretty-printing of the TimeFrame type.
 instance Show TimeFrame where
