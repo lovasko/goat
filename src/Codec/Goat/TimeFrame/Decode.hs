@@ -1,6 +1,6 @@
 {- |
 Module      : Codec.Goat.TimeFrame.Decode
-Description : Timestamp decompression
+Description : Time decompression
 Copyright   : (c) Daniel Lovasko, 2016-2017
 License     : BSD3
 
@@ -8,7 +8,7 @@ Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
 Portability : portable
 
-Decoding of the compressed frame form into raw data point timestamps.
+Decoding of the compressed frame form into raw time points.
 -}
 
 module Codec.Goat.TimeFrame.Decode
@@ -41,7 +41,7 @@ timeDecode (TimeFrame (Just x) (Just y) len bs)
 
 -- | Decode a single delta of a delta from a list of bits.
 decode :: [Bool]                -- ^ bits
-       -> Maybe (Int64, [Bool]) -- ^ deltas of a delta & bits
+       -> Maybe (Int64, [Bool]) -- ^ delta of a delta & bits
 decode (False:xs)                = Just (0, xs)
 decode (True:False:xs)           = Just $ extract xs  7
 decode (True:True:False:xs)      = Just $ extract xs  9
