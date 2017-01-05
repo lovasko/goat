@@ -35,11 +35,10 @@ valueEncode xs = ValueFrame (Just y) (genericLength bits) (packBits bits)
     xors   = zipWith xor (y:ys) ys                         :: [Word32]
     (y:ys) = map coerceToWord xs                           :: [Word32]
 
--- | Encode a single value based on the previous leading and trailing
--- bit count.
-encode :: (Int, Int)           -- ^ current leading/trailing zeros
+-- | Encode a single value based on the previous bounds.
+encode :: (Int, Int)           -- ^ current bounds
        -> Word32               -- ^ value
-       -> ((Int, Int), [Bool]) -- ^ bits and new leading/trailing
+       -> ((Int, Int), [Bool]) -- ^ new bounds & encoded bits
 encode bounds x
   | x == 0    = (bounds,    [False])
   | fits      = (bounds,    [True, False] ++ slice bounds bits)
@@ -52,14 +51,15 @@ encode bounds x
 -- | Handle the encoding case where the core part of the word does not fit
 -- into the rolling bounds.
 outside :: (Int, Int) -- ^ bounds
-        -> [Bool]     -- ^ all number bits
+        -> [Bool]     -- ^ all bits of a number
         -> [Bool]     -- ^ encoded bits
 outside bounds@(lead, trail) bits = concat
   [ take 5 $ toBools lead
   , take 6 $ toBools $ 32-lead-trail
   , slice bounds bits ]
 
--- | Select a sublist based on the specified bounds.
+-- | Select a sublist based on the specified bounds. Note that this
+-- functions assumes list length to be 32.
 slice :: (Int, Int) -- ^ bounds
       -> [a]        -- ^ list
       -> [a]        -- ^ sublist
