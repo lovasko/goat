@@ -8,8 +8,8 @@ Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
 Portability : portable
 
-The TimeFrame type represents the compressed form of data point timestamps.
-It is an instance of Eq and Serialize typeclasses.
+The TimeFrame type represents the compressed form of time points.  It is
+an instance of Eq, Show and Serialize typeclasses.
 -}
 
 module Codec.Goat.TimeFrame.Types
