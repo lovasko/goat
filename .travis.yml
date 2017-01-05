@@ -24,3 +24,4 @@ install:
 
 script:
 - travis_wait stack build --test --pedantic --test-arguments 20000
+- stack haddock
