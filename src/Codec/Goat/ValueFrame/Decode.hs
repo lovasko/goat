@@ -26,7 +26,7 @@ import Codec.Goat.ValueFrame.Types
 import Codec.Goat.Util
 
 -- | Helper type to hold the decoding context.
-type Context = ([Bool], (Int, Int))
+type Context = ([Bool], (Int, Int)) -- ^ available bits & bounds
 
 -- | Unpack value points from the succinct frame.
 valueDecode :: ValueFrame -- ^ succinct frame form
