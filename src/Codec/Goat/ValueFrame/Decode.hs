@@ -8,7 +8,7 @@ Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
 Portability : portable
 
-Decoding of the compressed frame form into raw data point values.
+Decoding of the compressed frame form into raw value points.
 -}
 
 module Codec.Goat.ValueFrame.Decode
@@ -24,6 +24,7 @@ import qualified Data.ByteString as B
 
 import Codec.Goat.ValueFrame.Types
 import Codec.Goat.Util
+
 
 -- | Helper type to hold the decoding context.
 type Context = ([Bool], (Int, Int)) -- ^ available bits & bounds
@@ -41,8 +42,8 @@ valueDecode (ValueFrame (Just x) len bs)
     bits = genericTake len (unpackBits bs) :: [Bool]
 
 -- | Decode a single XORed value.
-decode :: Context                 -- ^ available bits & current bounds
-       -> Maybe (Word32, Context) -- ^ decode value & current context
+decode :: Context                 -- ^ current context
+       -> Maybe (Word32, Context) -- ^ decoded value & new context
 decode (False:xs,      bounds) = Just (0, (xs, bounds))
 decode (True:False:xs, bounds) = Just $ inside bounds xs
 decode (True:True:xs,  _     ) = Just $ outside xs

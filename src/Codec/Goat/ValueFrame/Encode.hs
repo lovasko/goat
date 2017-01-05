@@ -8,7 +8,7 @@ Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
 Portability : portable
 
-Encoding of data point values into a compressed frame form.
+Encoding of value points into a compressed frame form.
 -}
 
 module Codec.Goat.ValueFrame.Encode
@@ -24,6 +24,7 @@ import qualified Data.ByteString as B
 
 import Codec.Goat.Util
 import Codec.Goat.ValueFrame.Types
+
 
 -- | Encode a list of float values into a succinct value frame.
 valueEncode :: [Float]    -- ^ data values

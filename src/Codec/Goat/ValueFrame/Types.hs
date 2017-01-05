@@ -24,6 +24,7 @@ import qualified Data.ByteString as B
 
 import Codec.Goat.Util
 
+
 -- | Succinct representation of a set of values.
 data ValueFrame = ValueFrame
   (Maybe Word32) -- ^ first value
