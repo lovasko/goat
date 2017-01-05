@@ -24,19 +24,18 @@ import Codec.Goat.TimeFrame.Types
 import Codec.Goat.Util
 
 
--- | Pack a list of time points into a succinct frame form.
+-- | Pack a list of _ascending_ time points into a succinct frame form.
 timeEncode :: [Word32]  -- ^ time points
            -> TimeFrame -- ^ succinct frame form
-timeEncode []     = TimeFrame Nothing  Nothing  0     B.empty
-timeEncode [x]    = TimeFrame (Just x) Nothing  0     B.empty
-timeEncode [x, y] = TimeFrame (Just y) (Just x) 0     B.empty
-timeEncode xs     = TimeFrame (Just x) (Just y) valid (packBits bits)
+timeEncode []       = TimeFrame Nothing  Nothing  0     B.empty
+timeEncode [x]      = TimeFrame (Just x) Nothing  0     B.empty
+timeEncode [x, y]   = TimeFrame (Just x) (Just y) 0     B.empty
+timeEncode (x:y:zs) = TimeFrame (Just x) (Just y) valid (packBits bits)
   where
-    valid       = genericLength bits
-    bits        = concatMap encode dods             :: [Bool]
-    dods        = zipWith sub deltas ((y-x):deltas) :: [Int64]
-    deltas      = zipWith (-) times (y:times)       :: [Word32]
-    (x:y:times) = reverse xs                        :: [Word32]
+    valid  = genericLength bits
+    bits   = concatMap encode dods                 :: [Bool]
+    dods   = zipWith (-) deltas ((sub y x):deltas) :: [Int64]
+    deltas = zipWith sub zs (y:zs)                 :: [Int64]
 
 -- | Encode the new incoming value based on its delta of a delta.
 encode :: Int64  -- ^ delta of a delta

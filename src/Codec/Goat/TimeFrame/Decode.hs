@@ -30,8 +30,8 @@ timeDecode :: TimeFrame -- ^ succinct frame form
 timeDecode (TimeFrame Nothing  _        _   _ ) = []
 timeDecode (TimeFrame (Just x) Nothing  _   _ ) = [x]
 timeDecode (TimeFrame (Just x) (Just y) len bs)
-  | B.null bs || len == 0 = [y, x]
-  | otherwise             = reverse $ [x, y] ++ map fromIntegral times
+  | B.null bs || len == 0 = [x, y]
+  | otherwise             = [x, y] ++ map fromIntegral times
   where
     times  = apply (fromIntegral y) deltas   :: [Int64]
     deltas = apply (sub y x) dods            :: [Int64]
