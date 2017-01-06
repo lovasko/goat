@@ -29,12 +29,13 @@ import Safe
 import Codec.Goat.Frame
 import Codec.Goat.Util
 
+
 -- | Management of fluid transitions between compressed and uncompresed
--- state.
-data Fluid r c = Fluid
-                 (Int, Int) -- ^ section lenghts
-                 [[r]]      -- ^ uncompressed section
-                 [c]        -- ^ compressed section
+-- state. The constructor arguments are as follows:
+--   * section lengths
+--   * raw section
+--   * compressed section
+data Fluid r c = Fluid (Int, Int) [[r]] [c]
 
 -- | Pretty-printing of the Fluid type.
 instance Show (Fluid r c) where
