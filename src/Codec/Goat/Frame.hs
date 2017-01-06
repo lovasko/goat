@@ -30,9 +30,14 @@ import Codec.Goat.ValueFrame
 -- | Abstract compression frame that binds two types together. The type
 -- variable "r" stands for Raw, variable "c" for Compressed.
 class Frame r c where
-  frameDecode :: c -> [r]     -- ^ decompress a frame into raw elements
-  frameEncode :: [r] -> c     -- ^ compress raw elements into a frame
-  frameHead   :: c -> Maybe r -- ^ first raw element of a frame
+  -- | Decompress a frame into raw elements.
+  frameDecode :: c -> [r]
+
+  -- | Compress raw elements into a frame.
+  frameEncode :: [r] -> c
+
+  -- | First raw element of a frame.
+  frameHead   :: c -> Maybe r
 
 -- | Binding of Float and ValueFrame.
 instance Frame Float ValueFrame where
