@@ -39,12 +39,12 @@ data Fluid r c = Fluid (Int, Int) [[r]] [c]
 
 -- | Pretty-printing of the Fluid type.
 instance Show (Fluid r c) where
-  show (Fluid (l1, l2) rs cs) =
-    unwords [ "Fluid"
-            , "l1max=" ++ show l1
-            , "l2max=" ++ show l2
-            , "l1cur=" ++ show (length rs)
-            , "l2cur=" ++ show (length cs) ]
+  show (Fluid (l1, l2) rs cs) = unwords
+    [ "Fluid"
+    , "l1max=" ++ show l1
+    , "l2max=" ++ show l2
+    , "l1cur=" ++ show (length rs)
+    , "l2cur=" ++ show (length cs) ]
 
 -- | Create a new fluid.
 fluidNew :: (Int, Int) -- ^ section lengths
