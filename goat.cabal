@@ -3,7 +3,7 @@ version:             0.1.0.0
 synopsis:            Time Series Compression Algorithm
 description:         Goat is a time series compression algorithm heavily based
                      on Facebook's Gorilla paper. It provides compression for
-                     both timestamps and value points of a time series. 
+                     both timestamps and value points of a time series.
 homepage:            https://github.com/lovasko/goat
 license:             OtherLicense
 license-file:        LICENSE
