@@ -34,7 +34,7 @@ timeEncode (x:y:zs) = TimeFrame (Just x) (Just y) valid (packBits bits)
   where
     valid  = genericLength bits
     bits   = concatMap encode dods                 :: [Bool]
-    dods   = zipWith (-) deltas ((sub y x):deltas) :: [Int64]
+    dods   = zipWith (-) deltas (sub y x : deltas) :: [Int64]
     deltas = zipWith sub zs (y:zs)                 :: [Int64]
 
 -- | Encode the new incoming value based on its delta of a delta.
