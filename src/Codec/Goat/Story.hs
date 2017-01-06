@@ -28,12 +28,14 @@ import Codec.Goat.TimeFrame
 import Codec.Goat.Util
 import Codec.Goat.ValueFrame
 
--- | Representation of a time series object.
-data Story = Story
-             Word32                   -- ^ time window size
-             Word32                   -- ^ current time window number
-             (Fluid Word32 TimeFrame) -- ^ times fluid
-             (Fluid Float ValueFrame) -- ^ values fluid
+
+-- | Representation of a time series object. The constructor arguments are
+-- as follows:
+--   * time window size
+--   * current time window number
+--   * times fluid
+--   * values fluid
+data Story = Story Word32 Word32 (Fluid Word32 TimeFrame) (Fluid Float ValueFrame)
 
 -- | Pretty-printing for the Story type.
 instance Show Story where

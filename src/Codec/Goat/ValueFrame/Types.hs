@@ -25,11 +25,12 @@ import qualified Data.ByteString as B
 import Codec.Goat.Util
 
 
--- | Succinct representation of a set of values.
-data ValueFrame = ValueFrame
-  (Maybe Word32) -- ^ first value
-  Word32         -- ^ number of valid bits
-  B.ByteString   -- ^ bits
+-- | Succinct representation of a list of value points. The constructor
+-- arguments are as follows:
+--   * first value
+--   * number of valid bits
+--   * bits
+data ValueFrame = ValueFrame (Maybe Word32) Word32 B.ByteString
   deriving (Eq)
 
 -- | Pretty-printing of the ValueFrame type.

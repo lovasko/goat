@@ -24,12 +24,13 @@ import qualified Data.ByteString as B
 import Codec.Goat.Util
 
 
--- | Succinct representation of a set of time points.
-data TimeFrame = TimeFrame
-  (Maybe Word32) -- ^ first time point
-  (Maybe Word32) -- ^ second time point
-  Word32         -- ^ number of valid bits
-  B.ByteString   -- ^ bits
+-- | Succinct representation of a list of time points. The constructor
+-- arguments are as follows:
+--   * first time point
+--   * second time point
+--   * number of valid bits
+--   * bits
+data TimeFrame = TimeFrame (Maybe Word32) (Maybe Word32) Word32 B.ByteString
   deriving (Eq)
 
 -- | Pretty-printing of the TimeFrame type.
