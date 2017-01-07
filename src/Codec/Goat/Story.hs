@@ -10,7 +10,7 @@ Portability : portable
 
 The Story type provides an easy-to-use high-level interface to a time
 series object. This module implements the building of the time series
-structure and enables interval queries that return data point values.
+structure and enables interval queries that return value points.
 -}
 
 module Codec.Goat.Story
