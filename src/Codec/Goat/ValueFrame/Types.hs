@@ -8,7 +8,7 @@ Maintainer  : Daniel Lovasko <daniel.lovasko@gmail.com>
 Stability   : stable
 Portability : portable
 
-The ValueFrame type represents the compressed form of data point values.
+The ValueFrame type represents the compressed form of value points.
 It is an instance of Eq, Show and Serialize typeclasses.
 -}
 

@@ -31,7 +31,7 @@ type Context = ([Bool], (Int, Int)) -- ^ available bits & bounds
 
 -- | Unpack value points from the succinct frame.
 valueDecode :: ValueFrame -- ^ succinct frame form
-            -> [Float]    -- ^ data points
+            -> [Float]    -- ^ value points
 valueDecode (ValueFrame Nothing  _   _ ) = []
 valueDecode (ValueFrame (Just x) len bs)
   | B.null bs || len == 0 = [coerceToFloat x]

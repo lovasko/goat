@@ -27,7 +27,7 @@ import Codec.Goat.ValueFrame.Types
 
 
 -- | Encode a list of float values into a succinct value frame.
-valueEncode :: [Float]    -- ^ data values
+valueEncode :: [Float]    -- ^ value points
             -> ValueFrame -- ^ succinct frame form
 valueEncode [] = ValueFrame Nothing  0                    B.empty
 valueEncode xs = ValueFrame (Just y) (genericLength bits) (packBits bits)
