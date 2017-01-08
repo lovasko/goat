@@ -17,7 +17,8 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Codec.Goat.Fluid
+  exposed-modules:     Codec.Goat
+                     , Codec.Goat.Fluid
                      , Codec.Goat.Frame
                      , Codec.Goat.Story
                      , Codec.Goat.TimeFrame
