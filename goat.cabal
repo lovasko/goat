@@ -1,5 +1,5 @@
 name:                goat
-version:             0.1.0.0
+version:             1.0
 synopsis:            Time Series Compression
 description:         Goat is a time series compression implementation heavily
                      influenced by the Gorilla paper published by Facebook.
